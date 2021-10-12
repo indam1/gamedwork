@@ -69,7 +69,7 @@ function ImageSettings(props) {
                     verticalAlign={"middle"}
 
                     onClick={() => {
-                        editTextSettings(linkRef.current, props.stage, selectedShape, images, setImages);
+                        editTextSettings(linkRef.current, props.stage, selectedShape, images, setImages, "src");
                     }}
                 />
             </Group>

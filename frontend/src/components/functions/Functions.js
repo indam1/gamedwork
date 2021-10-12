@@ -45,6 +45,20 @@ export const dragBoundVar = (pos, ref, shapeProps) => {
     }
 }
 
+function changeAttrFontSize(selectedShape, textarea, elems, setElems) {
+    const newAttrs = {...selectedShape, fontSize: textarea.value};
+    const elms = elems.slice();
+    elms[elms.findIndex((el) => el.id === selectedShape?.id)] = newAttrs;
+    setElems(elms);
+}
+
+function changeAttrRadiusX(selectedShape, textarea, elems, setElems) {
+    const newAttrs = {...selectedShape, radiusX: textarea.value};
+    const elms = elems.slice();
+    elms[elms.findIndex((el) => el.id === selectedShape?.id)] = newAttrs;
+    setElems(elms);
+}
+
 export const editTextSettings = (textNode, stage, selectedShape, elems, setElems, attr) => {// hide text node and transformer:
     textNode.hide();
 
@@ -70,7 +84,7 @@ export const editTextSettings = (textNode, stage, selectedShape, elems, setElems
     // and sometimes it is hard to make it 100% the same. But we will try...
     textarea.value = textNode.text();
     textarea.style.position = 'absolute';
-    textarea.style.top = areaPosition.y + textNode.height()/2 + 'px';
+    textarea.style.top = areaPosition.y + textNode.height() / 2 + 'px';
     textarea.style.left = areaPosition.x + 'px';
     textarea.style.width = textNode.width() - textNode.padding() * 2 + 'px';
     textarea.style.height =
@@ -114,6 +128,25 @@ export const editTextSettings = (textNode, stage, selectedShape, elems, setElems
 
     textarea.focus();
 
+    function changeAttr() {
+        const newAttrs = selectedShape;
+        if (attr === "fontSize")
+            newAttrs.fontSize = textarea.value;
+        else if (attr === "radiusX")
+            newAttrs.radiusX = textarea.value;
+        else if (attr === "radiusY")
+            newAttrs.radiusY = textarea.value;
+        else if (attr === "height")
+            newAttrs.height = textarea.value;
+        else if (attr === "width")
+            newAttrs.width = textarea.value;
+        else if (attr === "src")
+            newAttrs.src = textarea.value;
+        const elms = elems.slice();
+        elms[elms.findIndex((el) => el.id === selectedShape?.id)] = newAttrs;
+        setElems(elms);
+    }
+
     function removeTextarea() {
         textarea.parentNode.removeChild(textarea);
         window.removeEventListener('click', handleOutsideClick);
@@ -147,11 +180,7 @@ export const editTextSettings = (textNode, stage, selectedShape, elems, setElems
         // hide on enter
         // but don't hide on shift + enter
         if (e.keyCode === 13 && !e.shiftKey) {
-            const newAttrs = selectedShape;
-            newAttrs.setAttribute(attr, textarea.value);
-            const elms = elems.slice();
-            elms[elms.findIndex((el) => el.id === selectedShape?.id)] = newAttrs;
-            setElems(elms);
+            changeAttr();
 
             textNode.text(textarea.value);
             removeTextarea();
@@ -172,11 +201,7 @@ export const editTextSettings = (textNode, stage, selectedShape, elems, setElems
 
     function handleOutsideClick(e) {
         if (e.target !== textarea) {
-            const newAttrs = selectedShape;
-            newAttrs.setAttribute(attr, textarea.value);
-            const elms = elems.slice();
-            elms[elms.findIndex((el) => el.id === selectedShape?.id)] = newAttrs;
-            setElems(elms);
+            changeAttr();
 
             textNode.text(textarea.value);
             removeTextarea();

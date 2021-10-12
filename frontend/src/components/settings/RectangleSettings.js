@@ -5,6 +5,7 @@ import {style} from "./common/style";
 import {mainWidth, settingsWidth} from "../functions/Consts";
 import {editColorSettings, editTextSettings} from "../functions/Functions";
 import TextAndColor from "./common/TextAndColor";
+import TextAndTextarea from "./common/TextAndTextarea";
 
 function RectangleSettings(props) {
 
@@ -23,65 +24,25 @@ function RectangleSettings(props) {
                 y={60}
                 width={mainWidth * 0.1 - 16}
             >
-                <Text
+                <TextAndTextarea
+                    y={10}
                     text={"Ширина:"}
-                    fontFamily={"Verdana"}
-                    fontSize={14}
-                    width={settingsWidth / 2}
-                    y={10}
-                    height={60}
-                    fill={"white"}
-
-                    align={"center"}
-                    verticalAlign={"middle"}
+                    selectedShape={selectedShape}
+                    stage={props.stage}
+                    elems={rectangles}
+                    setElems={setRectangles}
+                    attrName={"width"}
+                    attr={selectedShape.width}
                 />
-                <Text
-                    text={selectedShape?.width}
-                    fontFamily={"monospace"}
-                    fill={"white"}
-                    fontSize={14}
-                    width={settingsWidth / 2}
-                    height={60}
-                    y={10}
-                    x={settingsWidth / 2}
-                    ref={widthRef}
-
-                    align={"center"}
-                    verticalAlign={"middle"}
-
-                    onClick={() => {
-                        editTextSettings(widthRef.current, props.stage, selectedShape, rectangles, setRectangles, "width");
-                    }}
-                />
-                <Text
+                <TextAndTextarea
+                    y={10 + 60 * 1}
                     text={"Высота:"}
-                    fontFamily={"Verdana"}
-                    fontSize={14}
-                    width={settingsWidth / 2}
-                    y={10 + 60 * 1}
-                    height={60}
-                    fill={"white"}
-
-                    align={"center"}
-                    verticalAlign={"middle"}
-                />
-                <Text
-                    text={selectedShape?.height}
-                    fontFamily={"monospace"}
-                    fill={"white"}
-                    fontSize={14}
-                    width={settingsWidth / 2}
-                    height={60}
-                    y={10 + 60 * 1}
-                    x={settingsWidth / 2}
-                    ref={heightRef}
-
-                    align={"center"}
-                    verticalAlign={"middle"}
-
-                    onClick={() => {
-                        editTextSettings(heightRef.current, props.layer, props.stage, selectedShape, rectangles, setRectangles, "height");
-                    }}
+                    selectedShape={selectedShape}
+                    stage={props.stage}
+                    elems={rectangles}
+                    setElems={setRectangles}
+                    attrName={"height"}
+                    attr={selectedShape.height}
                 />
                 <TextAndColor
                     y={10 + 60 * 2}

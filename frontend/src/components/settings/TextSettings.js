@@ -3,6 +3,7 @@ import {Circle, Group, Text} from "react-konva";
 import {mainWidth, settingsWidth} from "../functions/Consts";
 import {editColorSettings, editListSettings, editTextSettings} from "../functions/Functions";
 import TextAndColor from "./common/TextAndColor";
+import TextAndTextarea from "./common/TextAndTextarea";
 
 function TextSettings(props) {
 
@@ -23,35 +24,15 @@ function TextSettings(props) {
                 y={60}
                 width={mainWidth * 0.1 - 16}
             >
-                <Text
+                <TextAndTextarea
+                    y={10}
                     text={"Размер шрифта:"}
-                    fontFamily={"Verdana"}
-                    fontSize={14}
-                    width={settingsWidth / 2}
-                    y={10}
-                    height={60}
-                    fill={"white"}
-
-                    align={"center"}
-                    verticalAlign={"middle"}
-                />
-                <Text
-                    text={selectedShape?.fontSize}
-                    fontFamily={"monospace"}
-                    fill={"white"}
-                    fontSize={14}
-                    width={settingsWidth / 2}
-                    height={60}
-                    y={10}
-                    x={settingsWidth / 2}
-                    ref={fontSizeRef}
-
-                    align={"center"}
-                    verticalAlign={"middle"}
-
-                    onClick={() => {
-                        editTextSettings(fontSizeRef.current, props.stage, selectedShape, texts, setTexts, "fontSize");
-                    }}
+                    selectedShape={selectedShape}
+                    stage={props.stage}
+                    elems={texts}
+                    setElems={setTexts}
+                    attrName={"fontSize"}
+                    attr={selectedShape.fontSize}
                 />
 
                 <Text
