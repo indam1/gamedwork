@@ -1,14 +1,20 @@
-import React from "react";
-import {Group} from "react-konva";
+import React, {useRef} from "react";
+import {Circle, Group, Text} from "react-konva";
 import {Html} from "react-konva-utils";
 import {style} from "./common/style";
-import {mainWidth} from "../functions/Consts";
+import {mainWidth, settingsWidth} from "../functions/Consts";
+import {editColorSettings, editListSettings, editTextSettings} from "../functions/Functions";
+import TextAndColor from "./common/TextAndColor";
 
 function EllipseSettings(props) {
 
     const selectedShape = props.getGlob.get('selectedShape');
     const ellipses = props.getElem.get('ellipse');
     const setEllipses = props.setElem.get('ellipse');
+
+    const radiusXRef = useRef();
+    const radiusYRef = useRef();
+    const colorRef = useRef();
 
     return (
         <React.Fragment>
@@ -17,54 +23,74 @@ function EllipseSettings(props) {
                 y={60}
                 width={mainWidth * 0.1 - 16}
             >
-                <Html>
-                    <div style={style.common}>
-                        <div style={style.half}>
-                            <p style={style.text}>Размер горизонтального радиуса:</p>
-                        </div>
+                <Text
+                    text={"Горизонтальный радиус:"}
+                    fontFamily={"Verdana"}
+                    fontSize={14}
+                    width={settingsWidth / 2}
+                    y={10}
+                    height={60}
+                    fill={"white"}
 
-                        <div style={style.half}>
-                            <textarea style={style.textarea} onChange={(e) => {
-                                const newAttrs = selectedShape;
-                                newAttrs.radiusX = Math.ceil(Number(e.target.value));
-                                const ells = ellipses.slice();
-                                ells[ells.findIndex((el) => el.id === selectedShape?.id)] = newAttrs;
-                                setEllipses(ells);
-                            }} value={Math.ceil(selectedShape?.radiusX)} maxLength={3} rows={1} cols={3}/>
-                        </div>
-                    </div>
+                    align={"center"}
+                    verticalAlign={"middle"}
+                />
+                <Text
+                    text={selectedShape?.radiusX}
+                    fontFamily={"monospace"}
+                    fill={"white"}
+                    fontSize={14}
+                    width={settingsWidth / 2}
+                    height={60}
+                    y={10}
+                    x={settingsWidth / 2}
+                    ref={radiusXRef}
 
-                    <div style={style.common}>
-                        <div style={style.half}>
-                            <p style={style.text}>Размер вертикального радиуса:</p>
-                        </div>
+                    align={"center"}
+                    verticalAlign={"middle"}
 
-                        <div style={style.half}>
-                            <textarea style={style.textarea} onChange={(e) => {
-                                const newAttrs = selectedShape;
-                                newAttrs.radiusY = Number(e.target.value);
-                                const ells = ellipses.slice();
-                                ells[ells.findIndex((el) => el.id === selectedShape?.id)] = newAttrs;
-                                setEllipses(ells);
-                            }} value={selectedShape?.radiusY} maxLength={3} rows={1} cols={3}/>
-                        </div>
-                    </div>
+                    onClick={() => {
+                        editTextSettings(radiusXRef.current, props.stage, selectedShape, ellipses, setEllipses, "radiusX");
+                    }}
+                />
+                <Text
+                    text={"Вертикальный радиус:"}
+                    fontFamily={"Verdana"}
+                    fontSize={14}
+                    width={settingsWidth / 2}
+                    y={10 + 60 * 1}
+                    height={60}
+                    fill={"white"}
 
-                    <div style={style.common}>
-                        <div style={style.half}>
-                            <p style={style.text}>Цвет эллипса:</p>
-                        </div>
-                        <div style={style.half}>
-                            <input style={style.color} onChange={(e) => {
-                                const newAttrs = selectedShape;
-                                newAttrs.fill = e.target.value;
-                                const ells = ellipses.slice();
-                                ells[ells.findIndex((el) => el.id === selectedShape?.id)] = newAttrs;
-                                setEllipses(ells);
-                            }} type={"color"} value={selectedShape?.fill}/>
-                        </div>
-                    </div>
-                </Html>
+                    align={"center"}
+                    verticalAlign={"middle"}
+                />
+                <Text
+                    text={selectedShape?.radiusY}
+                    fontFamily={"monospace"}
+                    fill={"white"}
+                    fontSize={14}
+                    width={settingsWidth / 2}
+                    height={60}
+                    y={10 + 60 * 1}
+                    x={settingsWidth / 2}
+                    ref={radiusYRef}
+
+                    align={"center"}
+                    verticalAlign={"middle"}
+
+                    onClick={() => {
+                        editTextSettings(radiusYRef.current, props.layer, props.stage, selectedShape, ellipses, setEllipses, "radiusY");
+                    }}
+                />
+                <TextAndColor
+                    y={10 + 60 * 2}
+                    text={"Цвет:"}
+                    selectedShape={selectedShape}
+                    stage={props.stage}
+                    elems={ellipses}
+                    setElems={setEllipses}
+                />
             </Group>
         </React.Fragment>
     );

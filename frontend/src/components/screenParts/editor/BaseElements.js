@@ -1,6 +1,10 @@
 import React from "react";
 import {Ellipse, Group, Rect, Text} from "react-konva";
 import Icon from "../../templates/Icon";
+import {mainText} from "../../add/Text";
+import {mainEllipse} from "../../add/Ellipse";
+import {mainRectangle} from "../../add/Rectangle";
+import {mainImage} from "../../add/Image";
 
 function BaseElements(props) {
     const mainWidth = window.innerWidth;
@@ -40,40 +44,10 @@ function BaseElements(props) {
                     x={20}
                     y={40}
                     onTap={() => {
-                        props.setElem.get('text')((prevTexts) => [
-                            ...prevTexts,
-                            {
-                                counter: props.getCount.get('common'),
-                                x: mainWidth * 0.8 / 2,
-                                y: mainHeight * 0.7575 / 2,
-                                fontSize: 24,
-                                text: "Something",
-                                fill: "#000002",
-                                id: 'text' + props.getCount.get('text').toString(),
-                                field: props.getGlob.get('field').toString(),
-                                name: 'object',
-                            }
-                        ]);
-                        props.setCount.get('text')(props.getCount.get('text') + 1);
-                        props.setCount.get('common')(props.getCount.get('common') + 1);
+                        mainText(props);
                     }}
                     onClick={() => {
-                        props.setElem.get('text')((prevTexts) => [
-                            ...prevTexts,
-                            {
-                                counter: props.getCount.get('common'),
-                                x: mainWidth * 0.8 / 2,
-                                y: mainHeight * 0.7575 / 2,
-                                fontSize: 24,
-                                text: "Something",
-                                fill: "#000002",
-                                id: 'text' + props.getCount.get('text').toString(),
-                                field: props.getGlob.get('field').toString(),
-                                name: 'object',
-                            }
-                        ]);
-                        props.setCount.get('text')(props.getCount.get('text') + 1);
-                        props.setCount.get('common')(props.getCount.get('common') + 1);
+                        mainText(props);
                     }}
                 >
                     <Icon/>
@@ -109,40 +83,10 @@ function BaseElements(props) {
                     x={85}
                     y={40}
                     onTap={() => {
-                        props.setElem.get('ellipse')((prevEllipses) => [
-                            ...prevEllipses,
-                            {
-                                counter: props.getCount.get('common'),
-                                x: mainWidth * 0.8 / 2,
-                                y: mainHeight * 0.7575 / 2,
-                                radiusX: 25,
-                                radiusY: 25,
-                                fill: "#000002",
-                                id: 'ellipse' + props.getCount.get('ellipse').toString(),
-                                field: props.getGlob.get('field').toString(),
-                                name: 'object',
-                            }
-                        ]);
-                        props.setCount.get('ellipse')(props.getCount.get('ellipse') + 1);
-                        props.setCount.get('common')(props.getCount.get('common') + 1);
+                        mainEllipse(props);
                     }}
                     onClick={() => {
-                        props.setElem.get('ellipse')((prevEllipses) => [
-                            ...prevEllipses,
-                            {
-                                counter: props.getCount.get('common'),
-                                x: mainWidth * 0.8 / 2,
-                                y: mainHeight * 0.7575 / 2,
-                                radiusX: 25,
-                                radiusY: 25,
-                                fill: "#000002",
-                                id: 'ellipse' + props.getCount.get('ellipse').toString(),
-                                field: props.getGlob.get('field').toString(),
-                                name: 'object',
-                            }
-                        ]);
-                        props.setCount.get('ellipse')(props.getCount.get('ellipse') + 1);
-                        props.setCount.get('common')(props.getCount.get('common') + 1);
+                        mainEllipse(props);
                     }}
                 >
                     <Icon/>
@@ -175,40 +119,10 @@ function BaseElements(props) {
                     x={150}
                     y={40}
                     onTap={() => {
-                        props.setElem.get('rectangle')((prevRectangles) => [
-                            ...prevRectangles,
-                            {
-                                counter: props.getCount.get('common'),
-                                x: mainWidth * 0.8 / 2,
-                                y: mainHeight * 0.7575 / 2,
-                                width: 25,
-                                height: 25,
-                                fill: "#000002",
-                                id: 'rectangle' + props.getCount.get('rectangle').toString(),
-                                field: props.getGlob.get('field').toString(),
-                                name: 'object',
-                            }
-                        ]);
-                        props.setCount.get('rectangle')(props.getCount.get('rectangle') + 1);
-                        props.setCount.get('common')(props.getCount.get('common') + 1);
+                        mainRectangle(props);
                     }}
                     onClick={() => {
-                        props.setElem.get('rectangle')((prevRectangles) => [
-                            ...prevRectangles,
-                            {
-                                counter: props.getCount.get('common'),
-                                x: mainWidth * 0.8 / 2,
-                                y: mainHeight * 0.7575 / 2,
-                                width: 25,
-                                height: 25,
-                                fill: "#000002",
-                                id: 'rectangle' + props.getCount.get('rectangle').toString(),
-                                field: props.getGlob.get('field').toString(),
-                                name: 'object',
-                            }
-                        ]);
-                        props.setCount.get('rectangle')(props.getCount.get('rectangle') + 1);
-                        props.setCount.get('common')(props.getCount.get('common') + 1);
+                        mainRectangle(props);
                     }}
                 >
                     <Icon/>
@@ -242,42 +156,10 @@ function BaseElements(props) {
                     x={215}
                     y={40}
                     onTap={() => {
-                        props.setElem.get('image')((prevImages) => [
-                            ...prevImages,
-                            {
-                                counter: props.getCount.get('common'),
-                                x: mainWidth * 0.8 / 2,
-                                y: mainHeight * 0.7575 / 2,
-                                width: 25,
-                                height: 25,
-                                fill: "#000002",
-                                id: 'image' + props.getCount.get('image').toString(),
-                                field: props.getGlob.get('field').toString(),
-                                name: 'object',
-                                src: 'enter link',
-                            }
-                        ]);
-                        props.setCount.get('image')(props.getCount.get('image') + 1);
-                        props.setCount.get('common')(props.getCount.get('common') + 1);
+                        mainImage(props);
                     }}
                     onClick={() => {
-                        props.setElem.get('image')((prevImages) => [
-                            ...prevImages,
-                            {
-                                counter: props.getCount.get('common'),
-                                x: mainWidth * 0.8 / 2,
-                                y: mainHeight * 0.7575 / 2,
-                                width: 25,
-                                height: 25,
-                                fill: "#000002",
-                                id: 'image' + props.getCount.get('image').toString(),
-                                field: props.getGlob.get('field').toString(),
-                                name: 'object',
-                                src: 'enter link',
-                            }
-                        ]);
-                        props.setCount.get('image')(props.getCount.get('image') + 1);
-                        props.setCount.get('common')(props.getCount.get('common') + 1);
+                        mainImage(props);
                     }}
                 >
                     <Icon/>

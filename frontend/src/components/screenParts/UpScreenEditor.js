@@ -157,6 +157,9 @@ function UpScreenEditor(props) {
                     onMouseOut={(e) => {
                         e.currentTarget.opacity(1);
                     }}
+                    onClick={() => {
+                        window.location.href="http://127.0.0.1:8000/accounts/logout"
+                    }}
                     image={persCabImage}
                     width={42}
                     height={41}

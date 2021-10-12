@@ -1,16 +1,20 @@
-import React from "react";
-import {Group} from "react-konva";
-import {Html} from "react-konva-utils";
-import {style} from "./common/style";
-import {mainWidth} from "../functions/Consts";
+import React, {useRef} from "react";
+import {Circle, Group, Text} from "react-konva";
+import {mainWidth, settingsWidth} from "../functions/Consts";
+import {editColorSettings, editListSettings, editTextSettings} from "../functions/Functions";
+import TextAndColor from "./common/TextAndColor";
 
 function TextSettings(props) {
 
-    const options = ["Cursive", "Fantasy", "Montserrat", "Arial", "Helvetica", "Gill Sans", "Lucida", "Helvetica Narrow", "Times", "Times New Roman", "Palatino", "Bookman", "New Century Schoolbook", "Andale Mono", "Courier New", "Courier", "Lucidatypewriter", "Fixed", "Comic Sans", "Comic Sans MS", "Zapf Chancery", "Coronetscript", "Florence", "Parkavenue", "Impact", "Arnoldboecklin", "Oldtown", "Blippo", "Brushstroke"].sort();
+    const options = ["Cursive", "Fantasy", "Verdana", "Arial", "Helvetica", "Gill Sans", "Lucida", "Helvetica Narrow", "Times", "Times New Roman", "Palatino", "Bookman", "New Century Schoolbook", "Andale Mono", "Courier New", "Courier", "Lucidatypewriter", "Fixed", "Comic Sans", "Comic Sans MS", "Zapf Chancery", "Coronetscript", "Florence", "Parkavenue", "Impact", "Arnoldboecklin", "Oldtown", "Blippo", "Brushstroke"].sort();
 
     const selectedShape = props.getGlob.get('selectedShape');
     const texts = props.getElem.get('text');
     const setTexts = props.setElem.get('text');
+
+    const fontSizeRef = useRef();
+    const fontFamilyRef = useRef();
+    const colorRef = useRef();
 
     return (
         <React.Fragment>
@@ -19,57 +23,77 @@ function TextSettings(props) {
                 y={60}
                 width={mainWidth * 0.1 - 16}
             >
-                <Html>
-                    <div style={style.common}>
-                        <div style={style.half}>
-                            <p style={style.text}>Размер шрифта:</p>
-                        </div>
+                <Text
+                    text={"Размер шрифта:"}
+                    fontFamily={"Verdana"}
+                    fontSize={14}
+                    width={settingsWidth / 2}
+                    y={10}
+                    height={60}
+                    fill={"white"}
 
-                        <div style={style.half}>
-                            <textarea style={style.textarea} onChange={(e) => {
-                                const newAttrs = selectedShape;
-                                newAttrs.fontSize = e.target.value;
-                                const txts = texts.slice();
-                                txts[txts.findIndex((el) => el.id === selectedShape?.id)] = newAttrs;
-                                setTexts(txts);
-                            }} value={selectedShape?.fontSize} maxLength={3} rows={1} cols={3}/>
-                        </div>
-                    </div>
+                    align={"center"}
+                    verticalAlign={"middle"}
+                />
+                <Text
+                    text={selectedShape?.fontSize}
+                    fontFamily={"monospace"}
+                    fill={"white"}
+                    fontSize={14}
+                    width={settingsWidth / 2}
+                    height={60}
+                    y={10}
+                    x={settingsWidth / 2}
+                    ref={fontSizeRef}
 
-                    <div style={style.common}>
-                        <div style={style.half}>
-                            <p style={style.text}>Семейство шрифта:</p>
-                        </div>
-                        <div style={style.half}>
-                            <select style={style.select} onChange={(e) => {
-                                const newAttrs = selectedShape;
-                                newAttrs.fontFamily = e.target.value;
-                                const txts = texts.slice();
-                                txts[txts.findIndex((el) => el.id === selectedShape?.id)] = newAttrs;
-                                setTexts(txts);
-                            }} maxLength={3} value={selectedShape?.fontFamily}>
-                                {options.map((eachOption, i) => (
-                                    <option key={i} value={eachOption}>{eachOption}</option>
-                                ))}
-                            </select>
-                        </div>
-                    </div>
+                    align={"center"}
+                    verticalAlign={"middle"}
 
-                    <div style={style.common}>
-                        <div style={style.half}>
-                            <p style={style.text}>Цвет шрифта:</p>
-                        </div>
-                        <div style={style.half}>
-                            <input style={style.color} onChange={(e) => {
-                                const newAttrs = selectedShape;
-                                newAttrs.fill = e.target.value;
-                                const txts = texts.slice();
-                                txts[txts.findIndex((el) => el.id === selectedShape?.id)] = newAttrs;
-                                setTexts(txts);
-                            }} type={"color"} value={selectedShape?.fill}/>
-                        </div>
-                    </div>
-                </Html>
+                    onClick={() => {
+                        editTextSettings(fontSizeRef.current, props.stage, selectedShape, texts, setTexts, "fontSize");
+                    }}
+                />
+
+                <Text
+                    text={"Семейство шрифта:"}
+                    fontFamily={"Verdana"}
+                    fontSize={14}
+                    width={settingsWidth / 2}
+                    height={60}
+                    y={10 + 60 * 1}
+                    fill={"white"}
+
+                    align={"center"}
+                    verticalAlign={"middle"}
+                />
+                <Text
+                    text={selectedShape?.fontFamily}
+                    fontFamily={"monospace"}
+                    fill={"white"}
+                    fontSize={14}
+                    width={settingsWidth / 2}
+                    height={60}
+                    x={settingsWidth / 2}
+                    y={10 + 60 * 1}
+                    ref={fontFamilyRef}
+
+                    align={"center"}
+                    verticalAlign={"middle"}
+
+                    onClick={(e) => {
+                        editListSettings(fontFamilyRef.current, props.layer, props.stage, options, selectedShape, texts, setTexts);
+                    }}
+                />
+
+                <TextAndColor
+                    y={10 + 60 * 2}
+                    text={"Цвет:"}
+                    selectedShape={selectedShape}
+                    stage={props.stage}
+                    elems={texts}
+                    setElems={setTexts}
+                />
+
             </Group>
         </React.Fragment>
     );

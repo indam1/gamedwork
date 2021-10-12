@@ -15,13 +15,11 @@ function CenterScreenEditor(props) {
     const selectedShape = props.getGlob.get('selectedShape');
 
     const checkDeselect = (e) => {
-        console.log(e.currentTarget);
-        console.log(e.target.name());
         // deselect when clicked on empty area
         const clicked = e.target;
         if (clicked.hasName('field')) {
+            setSettings("");
             selectShape(null);
-            setSettings(null);
         }
     };
 

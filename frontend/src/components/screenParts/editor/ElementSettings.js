@@ -7,12 +7,18 @@ import FlashcardsSettings from "../../settings/FlashcardsSettings";
 import RectangleSettings from "../../settings/RectangleSettings";
 import ImageSettings from "../../settings/ImageSettings";
 import TextquestSettings from "../../settings/TextquestSettings";
-import {mainWidth, mainHeight} from "../../functions/Consts";
+import {
+    mainWidth,
+    mainHeight,
+    topPaddingSettings,
+    settingsHeight,
+    settingsWidth,
+    leftPaddingSettings
+} from "../../functions/Consts";
 
 function ElementSettings(props) {
     const settings = props.getGlob.get('settings');
 
-    const HEIGHT = 3000;
     const verticalBarRef = useRef();
     const groupRef = useRef();
 
@@ -21,22 +27,22 @@ function ElementSettings(props) {
             <Group // RightUp
                 zIndex={0}
                 ref={groupRef}
-                x={mainWidth * 0.9}
-                y={mainHeight * 0.05}
-                width={mainWidth * 0.1}
-                height={HEIGHT}
+                x={leftPaddingSettings}
+                y={topPaddingSettings}
+                width={settingsWidth}
+                height={settingsHeight}
             >
                 <Rect
                     fill={"#182430"}
                     x={0}
                     y={0}
-                    width={mainWidth * 0.1}
-                    height={HEIGHT}
+                    width={settingsWidth}
+                    height={settingsHeight}
                     stroke={"#182430"}
                 />
 
                 <Text
-                    width={mainWidth * 0.1}
+                    width={settingsWidth}
                     height={76}
                     fontFamily={"Montserrat"}
                     align={"center"}
@@ -58,6 +64,8 @@ function ElementSettings(props) {
 
                 {settings === 'Text' && (
                     <TextSettings
+                        layer={props.layer}
+                        stage={props.stage}
                         getElem={props.getElem}
                         setElem={props.setElem}
                         getGlob={props.getGlob}
@@ -67,6 +75,8 @@ function ElementSettings(props) {
 
                 {settings === 'Ellipse' && (
                     <EllipseSettings
+                        layer={props.layer}
+                        stage={props.stage}
                         getElem={props.getElem}
                         setElem={props.setElem}
                         getGlob={props.getGlob}
@@ -76,6 +86,8 @@ function ElementSettings(props) {
 
                 {settings === 'Flashcards' && (
                     <FlashcardsSettings
+                        layer={props.layer}
+                        stage={props.stage}
                         getElem={props.getElem}
                         setElem={props.setElem}
                         getGlob={props.getGlob}
@@ -85,6 +97,8 @@ function ElementSettings(props) {
 
                 {settings === 'Rectangle' && (
                     <RectangleSettings
+                        layer={props.layer}
+                        stage={props.stage}
                         getElem={props.getElem}
                         setElem={props.setElem}
                         getGlob={props.getGlob}
@@ -94,6 +108,8 @@ function ElementSettings(props) {
 
                 {settings === 'Image' && (
                     <ImageSettings
+                        layer={props.layer}
+                        stage={props.stage}
                         getElem={props.getElem}
                         setElem={props.setElem}
                         getGlob={props.getGlob}
@@ -103,6 +119,8 @@ function ElementSettings(props) {
 
                 {settings === 'Textquest' && (
                     <TextquestSettings
+                        layer={props.layer}
+                        stage={props.stage}
                         getElem={props.getElem}
                         setElem={props.setElem}
                         getGlob={props.getGlob}
@@ -119,13 +137,13 @@ function ElementSettings(props) {
                 fill={'grey'}
                 opacity={0.8}
                 x={mainWidth * 1 - 5 - 10}
-                y={65 + mainHeight * 0.05}
+                y={65 + topPaddingSettings}
                 draggable
                 dragBoundFunc={function (pos) {
                     pos.x = mainWidth * 1 - 5 - 10;
                     pos.y = Math.max(
-                        Math.min(pos.y, mainHeight * 0.475 - this.height() - 65 + mainHeight * 0.05 ),
-                        65 + mainHeight * 0.05
+                        Math.min(pos.y, mainHeight * 0.475 - this.height() - 65 + topPaddingSettings),
+                        65 + topPaddingSettings
                     );
                     return pos;
                 }}
@@ -134,10 +152,9 @@ function ElementSettings(props) {
                     const availableHeight =
                         mainHeight * 0.475 - 5 * 2 - verticalBarRef.current.height();
                     console.log(availableHeight);
-                    var delta = (verticalBarRef.current.y() - 65 - mainHeight * 0.05) * 1.44/ availableHeight;
-                    groupRef.current.y(mainHeight * 0.05 -(HEIGHT - mainHeight * 0.475) * delta);
+                    var delta = (verticalBarRef.current.y() - 65 - topPaddingSettings) * 1.44/ availableHeight;
+                    groupRef.current.y(topPaddingSettings -(settingsHeight - mainHeight * 0.475) * delta);
                 }}
-
             />
         </React.Fragment>
     );

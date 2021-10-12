@@ -1,14 +1,20 @@
-import React from "react";
-import {Group} from "react-konva";
+import React, {useRef} from "react";
+import {Circle, Group, Text} from "react-konva";
 import {Html} from "react-konva-utils";
 import {style} from "./common/style";
-import {mainWidth} from "../functions/Consts";
+import {mainWidth, settingsWidth} from "../functions/Consts";
+import {editColorSettings, editTextSettings} from "../functions/Functions";
+import TextAndColor from "./common/TextAndColor";
 
 function RectangleSettings(props) {
 
     const selectedShape = props.getGlob.get('selectedShape');
     const rectangles = props.getElem.get('rectangle');
     const setRectangles = props.setElem.get('rectangle');
+
+    const heightRef = useRef();
+    const widthRef = useRef();
+    const colorRef = useRef();
 
     return (
         <React.Fragment>
@@ -17,54 +23,74 @@ function RectangleSettings(props) {
                 y={60}
                 width={mainWidth * 0.1 - 16}
             >
-                <Html>
-                    <div style={style.common}>
-                        <div style={style.half}>
-                            <p style={style.text}>Ширина:</p>
-                        </div>
+                <Text
+                    text={"Ширина:"}
+                    fontFamily={"Verdana"}
+                    fontSize={14}
+                    width={settingsWidth / 2}
+                    y={10}
+                    height={60}
+                    fill={"white"}
 
-                        <div style={style.half}>
-                            <textarea style={style.textarea} onChange={(e) => {
-                                const newAttrs = selectedShape;
-                                newAttrs.width = Math.ceil(Number(e.target.value));
-                                const rcts = rectangles.slice();
-                                rcts[rcts.findIndex((el) => el.id === selectedShape?.id)] = newAttrs;
-                                setRectangles(rcts);
-                            }} value={Math.ceil(selectedShape?.width)} maxLength={3} rows={1} cols={3}/>
-                        </div>
-                    </div>
+                    align={"center"}
+                    verticalAlign={"middle"}
+                />
+                <Text
+                    text={selectedShape?.width}
+                    fontFamily={"monospace"}
+                    fill={"white"}
+                    fontSize={14}
+                    width={settingsWidth / 2}
+                    height={60}
+                    y={10}
+                    x={settingsWidth / 2}
+                    ref={widthRef}
 
-                    <div style={style.common}>
-                        <div style={style.half}>
-                            <p style={style.text}>Высота:</p>
-                        </div>
+                    align={"center"}
+                    verticalAlign={"middle"}
 
-                        <div style={style.half}>
-                            <textarea style={style.textarea} onChange={(e) => {
-                                const newAttrs = selectedShape;
-                                newAttrs.height = Number(e.target.value);
-                                const rcts = rectangles.slice();
-                                rcts[rcts.findIndex((el) => el.id === selectedShape?.id)] = newAttrs;
-                                setRectangles(rcts);
-                            }} value={selectedShape?.height} maxLength={3} rows={1} cols={3}/>
-                        </div>
-                    </div>
+                    onClick={() => {
+                        editTextSettings(widthRef.current, props.stage, selectedShape, rectangles, setRectangles, "width");
+                    }}
+                />
+                <Text
+                    text={"Высота:"}
+                    fontFamily={"Verdana"}
+                    fontSize={14}
+                    width={settingsWidth / 2}
+                    y={10 + 60 * 1}
+                    height={60}
+                    fill={"white"}
 
-                    <div style={style.common}>
-                        <div style={style.half}>
-                            <p style={style.text}>Цвет эллипса:</p>
-                        </div>
-                        <div style={style.half}>
-                            <input style={style.color} onChange={(e) => {
-                                const newAttrs = selectedShape;
-                                newAttrs.fill = e.target.value;
-                                const rcts = rectangles.slice();
-                                rcts[rcts.findIndex((el) => el.id === selectedShape?.id)] = newAttrs;
-                                setRectangles(rcts);
-                            }} type={"color"} value={selectedShape?.fill}/>
-                        </div>
-                    </div>
-                </Html>
+                    align={"center"}
+                    verticalAlign={"middle"}
+                />
+                <Text
+                    text={selectedShape?.height}
+                    fontFamily={"monospace"}
+                    fill={"white"}
+                    fontSize={14}
+                    width={settingsWidth / 2}
+                    height={60}
+                    y={10 + 60 * 1}
+                    x={settingsWidth / 2}
+                    ref={heightRef}
+
+                    align={"center"}
+                    verticalAlign={"middle"}
+
+                    onClick={() => {
+                        editTextSettings(heightRef.current, props.layer, props.stage, selectedShape, rectangles, setRectangles, "height");
+                    }}
+                />
+                <TextAndColor
+                    y={10 + 60 * 2}
+                    text={"Цвет:"}
+                    selectedShape={selectedShape}
+                    stage={props.stage}
+                    elems={rectangles}
+                    setElems={setRectangles}
+                />
             </Group>
         </React.Fragment>
     );

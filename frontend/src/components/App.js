@@ -112,8 +112,8 @@ function App() {
             const element = selectedShape?.id.replace(/[0-9]/g, '');
             setElements.get(element)(getElements.get(element).filter(item => selectedShape?.id !== item.id));
 
-            selectShape(null);
             setSettings("");
+            selectShape(null);
         }
     };
 
@@ -417,6 +417,8 @@ function App() {
 
                     {isEditorMode && (
                         <ElementSettings
+                            layer={layerRef}
+                            stage={stageRef}
                             getElem={getElements}
                             setElem={setElements}
                             getGlob={getGlobal}
