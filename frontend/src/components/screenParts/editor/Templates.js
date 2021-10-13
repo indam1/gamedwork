@@ -82,7 +82,7 @@ function Templates(props) {
                     onMouseOut={(e) => {
                         e.currentTarget.opacity(1);
                     }}
-                    onClick={(e) => {
+                    onClick={() => {
                         Test.testTemplate1(props);
                     }}
                 />

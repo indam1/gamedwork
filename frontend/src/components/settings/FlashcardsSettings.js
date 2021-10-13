@@ -5,6 +5,9 @@ import {style} from "./common/style";
 import {mainWidth, settingsWidth} from "../functions/Consts";
 import {editColorSettings, editTextSettings} from "../functions/Functions";
 import TextAndColor from "./common/TextAndColor";
+import TextAndTextarea from "./common/TextAndTextarea";
+import HeaderText from "./common/HeaderText";
+import TextAndList from "./common/TextAndList";
 
 function FlashcardsSettings(props) {
 
@@ -20,324 +23,9 @@ function FlashcardsSettings(props) {
         <React.Fragment>
             <Group
                 x={0}
-                y={60}
+                y={50}
                 width={mainWidth * 0.1 - 16}
             >
-                {/*<Html>*/}
-                {/*    <div style={style.common}>*/}
-                {/*        <div style={style.half}>*/}
-                {/*            <p style={style.text}>Цвет фона:</p>*/}
-                {/*        </div>*/}
-                {/*        <div style={style.half}>*/}
-                {/*            <input style={style.color} onChange={(e) => {*/}
-                {/*                const newAttrs = selectedShape;*/}
-                {/*                newAttrs.fill = e.target.value;*/}
-                {/*                const flcs = flashcards.slice();*/}
-                {/*                flcs[flashcards.findIndex((el) => el.id === selectedShape?.id)] = newAttrs;*/}
-                {/*                setFlashcards(flcs);*/}
-                {/*            }} type={"color"} value={selectedShape?.fill}/>*/}
-                {/*        </div>*/}
-                {/*    </div>*/}
-
-                {/*    <div style={style.common}>*/}
-                {/*        <div style={style.half}>*/}
-                {/*            <p style={style.text}>Радиус углов:</p>*/}
-                {/*        </div>*/}
-                {/*        <div style={style.half}>*/}
-                {/*            <textarea style={style.textarea} onChange={(e) => {*/}
-                {/*                const newAttrs = selectedShape;*/}
-                {/*                newAttrs.cornerRadius = Number(e.target.value);*/}
-                {/*                const flcs = flashcards.slice();*/}
-                {/*                flcs[flcs.findIndex((el) => el.id === selectedShape?.id)] = newAttrs;*/}
-                {/*                setFlashcards(flcs);*/}
-                {/*            }} value={selectedShape?.cornerRadius} maxLength={3} rows={1} cols={3}/>*/}
-                {/*        </div>*/}
-                {/*    </div>*/}
-
-                {/*    <div style={style.common}>*/}
-                {/*        <div style={style.half}>*/}
-                {/*            <p style={style.text}>Тема:</p>*/}
-                {/*        </div>*/}
-                {/*    </div>*/}
-
-                {/*    <div style={style.common}>*/}
-                {/*        <div style={style.half}>*/}
-                {/*            <p style={style.text}>Размер шрифта:</p>*/}
-                {/*        </div>*/}
-
-                {/*        <div style={style.half}>*/}
-                {/*            <textarea style={style.textarea} onChange={(e) => {*/}
-                {/*                const newAttrs = selectedShape;*/}
-                {/*                newAttrs.theme.fontSize = e.target.value;*/}
-                {/*                const flcs = flashcards.slice();*/}
-                {/*                flcs[flcs.findIndex((el) => el.id === selectedShape?.id)] = newAttrs;*/}
-                {/*                setFlashcards(flcs);*/}
-                {/*            }} value={selectedShape?.theme?.fontSize} maxLength={3} rows={1} cols={3}/>*/}
-                {/*        </div>*/}
-                {/*    </div>*/}
-
-                {/*    <div style={style.common}>*/}
-                {/*        <div style={style.half}>*/}
-                {/*            <p style={style.text}>Семейство шрифта:</p>*/}
-                {/*        </div>*/}
-                {/*        <div style={style.half}>*/}
-                {/*            <select style={style.select} onChange={(e) => {*/}
-                {/*                const newAttrs = selectedShape;*/}
-                {/*                newAttrs.theme.fontFamily = e.target.value;*/}
-                {/*                const flcs = flashcards.slice();*/}
-                {/*                flcs[flcs.findIndex((el) => el.id === selectedShape?.id)] = newAttrs;*/}
-                {/*                setFlashcards(flcs);*/}
-                {/*            }} value={selectedShape?.theme?.fontFamily}>*/}
-                {/*                {options.map((eachOption, i) => (*/}
-                {/*                    <option key={i} value={eachOption}>{eachOption}</option>*/}
-                {/*                ))}*/}
-                {/*            </select>*/}
-                {/*        </div>*/}
-                {/*    </div>*/}
-
-                {/*    <div style={style.common}>*/}
-                {/*        <div style={style.half}>*/}
-                {/*            <p style={style.text}>Цвет шрифта:</p>*/}
-                {/*        </div>*/}
-                {/*        <div style={style.half}>*/}
-                {/*            <input style={style.color} onChange={(e) => {*/}
-                {/*                const newAttrs = selectedShape;*/}
-                {/*                newAttrs.theme.fill = e.target.value;*/}
-                {/*                const flcs = flashcards.slice();*/}
-                {/*                flcs[flcs.findIndex((el) => el.id === selectedShape?.id)] = newAttrs;*/}
-                {/*                setFlashcards(flcs);*/}
-                {/*            }} type={"color"} value={selectedShape?.theme?.fill}/>*/}
-                {/*        </div>*/}
-                {/*    </div>*/}
-
-                {/*    <div style={style.common}>*/}
-                {/*        <div style={style.half}>*/}
-                {/*            <p style={style.text}>Слово:</p>*/}
-                {/*        </div>*/}
-                {/*    </div>*/}
-
-                {/*    <div style={style.common}>*/}
-                {/*        <div style={style.half}>*/}
-                {/*            <p style={style.text}>Размер шрифта:</p>*/}
-                {/*        </div>*/}
-
-                {/*        <div style={style.half}>*/}
-                {/*            <textarea style={style.textarea} onChange={(e) => {*/}
-                {/*                const newAttrs = selectedShape;*/}
-                {/*                newAttrs.word.fontSize = e.target.value;*/}
-                {/*                const flcs = flashcards.slice();*/}
-                {/*                flcs[flcs.findIndex((el) => el.id === selectedShape?.id)] = newAttrs;*/}
-                {/*                setFlashcards(flcs);*/}
-                {/*            }} value={selectedShape?.word?.fontSize} maxLength={3} rows={1} cols={3}/>*/}
-                {/*        </div>*/}
-                {/*    </div>*/}
-
-                {/*    <div style={style.common}>*/}
-                {/*        <div style={style.half}>*/}
-                {/*            <p style={style.text}>Семейство шрифта:</p>*/}
-                {/*        </div>*/}
-                {/*        <div style={style.half}>*/}
-                {/*            <select style={style.select} onChange={(e) => {*/}
-                {/*                const newAttrs = selectedShape;*/}
-                {/*                newAttrs.word.fontFamily = e.target.value;*/}
-                {/*                const flcs = flashcards.slice();*/}
-                {/*                flcs[flcs.findIndex((el) => el.id === selectedShape?.id)] = newAttrs;*/}
-                {/*                setFlashcards(flcs);*/}
-                {/*            }} value={selectedShape?.word?.fontFamily}>*/}
-                {/*                {options.map((eachOption, i) => (*/}
-                {/*                    <option key={i} value={eachOption}>{eachOption}</option>*/}
-                {/*                ))}*/}
-                {/*            </select>*/}
-                {/*        </div>*/}
-                {/*    </div>*/}
-
-                {/*    <div style={style.common}>*/}
-                {/*        <div style={style.half}>*/}
-                {/*            <p style={style.text}>Цвет шрифта:</p>*/}
-                {/*        </div>*/}
-                {/*        <div style={style.half}>*/}
-                {/*            <input style={style.color} onChange={(e) => {*/}
-                {/*                const newAttrs = selectedShape;*/}
-                {/*                newAttrs.word.fill = e.target.value;*/}
-                {/*                const flcs = flashcards.slice();*/}
-                {/*                flcs[flcs.findIndex((el) => el.id === selectedShape?.id)] = newAttrs;*/}
-                {/*                setFlashcards(flcs);*/}
-                {/*            }} type={"color"} value={selectedShape?.word?.fill}/>*/}
-                {/*        </div>*/}
-                {/*    </div>*/}
-
-                {/*    <div style={style.common}>*/}
-                {/*        <div style={style.half}>*/}
-                {/*            <p style={style.text}>Значение:</p>*/}
-                {/*        </div>*/}
-                {/*    </div>*/}
-
-                {/*    <div style={style.common}>*/}
-                {/*        <div style={style.half}>*/}
-                {/*            <p style={style.text}>Размер шрифта:</p>*/}
-                {/*        </div>*/}
-
-                {/*        <div style={style.half}>*/}
-                {/*            <textarea style={style.textarea} onChange={(e) => {*/}
-                {/*                const newAttrs = selectedShape;*/}
-                {/*                newAttrs.meaning.fontSize = e.target.value;*/}
-                {/*                const flcs = flashcards.slice();*/}
-                {/*                flcs[flcs.findIndex((el) => el.id === selectedShape?.id)] = newAttrs;*/}
-                {/*                setFlashcards(flcs);*/}
-                {/*            }} value={selectedShape?.meaning?.fontSize} maxLength={3} rows={1} cols={3}/>*/}
-                {/*        </div>*/}
-                {/*    </div>*/}
-
-                {/*    <div style={style.common}>*/}
-                {/*        <div style={style.half}>*/}
-                {/*            <p style={style.text}>Семейство шрифта:</p>*/}
-                {/*        </div>*/}
-                {/*        <div style={style.half}>*/}
-                {/*            <select style={style.select} onChange={(e) => {*/}
-                {/*                const newAttrs = selectedShape;*/}
-                {/*                newAttrs.meaning.fontFamily = e.target.value;*/}
-                {/*                const flcs = flashcards.slice();*/}
-                {/*                flcs[flcs.findIndex((el) => el.id === selectedShape?.id)] = newAttrs;*/}
-                {/*                setFlashcards(flcs);*/}
-                {/*            }} value={selectedShape?.meaning?.fontFamily}>*/}
-                {/*                {options.map((eachOption, i) => (*/}
-                {/*                    <option key={i} value={eachOption}>{eachOption}</option>*/}
-                {/*                ))}*/}
-                {/*            </select>*/}
-                {/*        </div>*/}
-                {/*    </div>*/}
-
-                {/*    <div style={style.common}>*/}
-                {/*        <div style={style.half}>*/}
-                {/*            <p style={style.text}>Цвет шрифта:</p>*/}
-                {/*        </div>*/}
-                {/*        <div style={style.half}>*/}
-                {/*            <input style={style.color} onChange={(e) => {*/}
-                {/*                const newAttrs = selectedShape;*/}
-                {/*                newAttrs.meaning.fill = e.target.value;*/}
-                {/*                const flcs = flashcards.slice();*/}
-                {/*                flcs[flcs.findIndex((el) => el.id === selectedShape?.id)] = newAttrs;*/}
-                {/*                setFlashcards(flcs);*/}
-                {/*            }} type={"color"} value={selectedShape?.meaning?.fill}/>*/}
-                {/*        </div>*/}
-                {/*    </div>*/}
-
-                {/*    <div style={style.common}>*/}
-                {/*        <div style={style.half}>*/}
-                {/*            <p style={style.text}>Кнопка:</p>*/}
-                {/*        </div>*/}
-                {/*    </div>*/}
-
-                {/*    <div style={style.common}>*/}
-                {/*        <div style={style.half}>*/}
-                {/*            <p style={style.text}>Размер шрифта:</p>*/}
-                {/*        </div>*/}
-
-                {/*        <div style={style.half}>*/}
-                {/*            <textarea style={style.textarea} onChange={(e) => {*/}
-                {/*                const newAttrs = selectedShape;*/}
-                {/*                newAttrs.button.fontSize = e.target.value;*/}
-                {/*                const flcs = flashcards.slice();*/}
-                {/*                flcs[flcs.findIndex((el) => el.id === selectedShape?.id)] = newAttrs;*/}
-                {/*                setFlashcards(flcs);*/}
-                {/*            }} value={selectedShape?.button?.fontSize} maxLength={3} rows={1} cols={3}/>*/}
-                {/*        </div>*/}
-                {/*    </div>*/}
-
-                {/*    <div style={style.common}>*/}
-                {/*        <div style={style.half}>*/}
-                {/*            <p style={style.text}>Семейство шрифта:</p>*/}
-                {/*        </div>*/}
-                {/*        <div style={style.half}>*/}
-                {/*            <select style={style.select} onChange={(e) => {*/}
-                {/*                const newAttrs = selectedShape;*/}
-                {/*                newAttrs.button.fontFamily = e.target.value;*/}
-                {/*                const flcs = flashcards.slice();*/}
-                {/*                flcs[flcs.findIndex((el) => el.id === selectedShape?.id)] = newAttrs;*/}
-                {/*                setFlashcards(flcs);*/}
-                {/*            }} value={selectedShape?.button?.fontFamily}>*/}
-                {/*                {options.map((eachOption, i) => (*/}
-                {/*                    <option key={i} value={eachOption}>{eachOption}</option>*/}
-                {/*                ))}*/}
-                {/*            </select>*/}
-                {/*        </div>*/}
-                {/*    </div>*/}
-
-                {/*    <div style={style.common}>*/}
-                {/*        <div style={style.half}>*/}
-                {/*            <p style={style.text}>Цвет шрифта:</p>*/}
-                {/*        </div>*/}
-                {/*        <div style={style.half}>*/}
-                {/*            <input style={style.color} onChange={(e) => {*/}
-                {/*                const newAttrs = selectedShape;*/}
-                {/*                newAttrs.button.textFill = e.target.value;*/}
-                {/*                const flcs = flashcards.slice();*/}
-                {/*                flcs[flcs.findIndex((el) => el.id === selectedShape?.id)] = newAttrs;*/}
-                {/*                setFlashcards(flcs);*/}
-                {/*            }} type={"color"} value={selectedShape?.button?.textFill}/>*/}
-                {/*        </div>*/}
-                {/*    </div>*/}
-
-                {/*    <div style={style.common}>*/}
-                {/*        <div style={style.half}>*/}
-                {/*            <p style={style.text}>Цвет фона:</p>*/}
-                {/*        </div>*/}
-                {/*        <div style={style.half}>*/}
-                {/*            <input style={style.color} onChange={(e) => {*/}
-                {/*                const newAttrs = selectedShape;*/}
-                {/*                newAttrs.button.backgroundFill = e.target.value;*/}
-                {/*                const flcs = flashcards.slice();*/}
-                {/*                flcs[flashcards.findIndex((el) => el.id === selectedShape?.id)] = newAttrs;*/}
-                {/*                setFlashcards(flcs);*/}
-                {/*            }} type={"color"} value={selectedShape?.button?.backgroundFill}/>*/}
-                {/*        </div>*/}
-                {/*    </div>*/}
-
-                {/*    <div style={style.common}>*/}
-                {/*        <div style={style.half}>*/}
-                {/*            <p style={style.text}>Радиус углов:</p>*/}
-                {/*        </div>*/}
-                {/*        <div style={style.half}>*/}
-                {/*            <textarea style={style.textarea} onChange={(e) => {*/}
-                {/*                const newAttrs = selectedShape;*/}
-                {/*                newAttrs.button.cornerRadius = Number(e.target.value);*/}
-                {/*                const flcs = flashcards.slice();*/}
-                {/*                flcs[flcs.findIndex((el) => el.id === selectedShape?.id)] = newAttrs;*/}
-                {/*                setFlashcards(flcs);*/}
-                {/*            }} value={selectedShape?.button?.cornerRadius} maxLength={3} rows={1} cols={3}/>*/}
-                {/*        </div>*/}
-                {/*    </div>*/}
-
-                {/*    <div style={style.common}>*/}
-                {/*        <div style={style.half}>*/}
-                {/*            <p style={style.text}>Ширина:</p>*/}
-                {/*        </div>*/}
-                {/*        <div style={style.half}>*/}
-                {/*            <textarea style={style.textarea} onChange={(e) => {*/}
-                {/*                const newAttrs = selectedShape;*/}
-                {/*                newAttrs.button.width = Number(e.target.value);*/}
-                {/*                const flcs = flashcards.slice();*/}
-                {/*                flcs[flcs.findIndex((el) => el.id === selectedShape?.id)] = newAttrs;*/}
-                {/*                setFlashcards(flcs);*/}
-                {/*            }} value={selectedShape?.button?.width} maxLength={3} rows={1} cols={3}/>*/}
-                {/*        </div>*/}
-                {/*    </div>*/}
-
-                {/*    <div style={style.common}>*/}
-                {/*        <div style={style.half}>*/}
-                {/*            <p style={style.text}>Высота:</p>*/}
-                {/*        </div>*/}
-                {/*        <div style={style.half}>*/}
-                {/*            <textarea style={style.textarea} onChange={(e) => {*/}
-                {/*                const newAttrs = selectedShape;*/}
-                {/*                newAttrs.button.height = Number(e.target.value);*/}
-                {/*                const flcs = flashcards.slice();*/}
-                {/*                flcs[flcs.findIndex((el) => el.id === selectedShape?.id)] = newAttrs;*/}
-                {/*                setFlashcards(flcs);*/}
-                {/*            }} value={selectedShape?.button?.height} maxLength={3} rows={1} cols={3}/>*/}
-                {/*        </div>*/}
-                {/*    </div>*/}
-
                 {/*    <div style={style.common}>*/}
                 {/*        <div style={style.half}>*/}
                 {/*            <p style={style.text}>Результат:</p>*/}
@@ -455,109 +143,245 @@ function FlashcardsSettings(props) {
                 {/*    ))}*/}
                 {/*</Html>*/}
                 <TextAndColor
-                    y={10 + 60 * 2}
+                    y={10}
+                    text={"Цвет фона:"}
+                    selectedShape={selectedShape}
+                    stage={props.stage}
+                    elems={flashcards}
+                    setElems={setFlashcards}
+                    attrName={"fill"}
+                    attr={selectedShape.fill}
+                />
+                <TextAndTextarea
+                    y={10 + 50 * 1}
+                    text={"Радиус углов:"}
+                    selectedShape={selectedShape}
+                    stage={props.stage}
+                    elems={flashcards}
+                    setElems={setFlashcards}
+                    attrName={"cornerRadius"}
+                    attr={selectedShape.cornerRadius}
+                />
+                <HeaderText
+                    text={"Тема:"}
+                    y={10 + 50 * 2}
+                />
+                <TextAndTextarea
+                    y={10 + 50 * 3}
+                    text={"Размер шрифта:"}
+                    selectedShape={selectedShape}
+                    stage={props.stage}
+                    elems={flashcards}
+                    setElems={setFlashcards}
+                    attrName={"theme:fontSize"}
+                    attr={selectedShape.theme.fontSize}
+                />
+                <TextAndList
+                    y={10 + 50 * 4}
+                    text={"Семейство шрифта:"}
+                    selectedShape={selectedShape}
+                    stage={props.stage}
+                    elems={flashcards}
+                    setElems={setFlashcards}
+                    attrName={"theme:fontFamily"}
+                    attr={selectedShape.theme.fontFamily}
+                    options={options}
+                    layer={props.layer}
+                />
+                <TextAndColor
+                    y={10 + 50 * 5}
+                    text={"Цвет:"}
+                    selectedShape={selectedShape}
+                    stage={props.stage}
+                    elems={flashcards}
+                    setElems={setFlashcards}
+                    attrName={"theme:fill"}
+                    attr={selectedShape.theme.fill}
+                />
+                <HeaderText
+                    text={"Слово:"}
+                    y={10 + 50 * 6}
+                />
+                <TextAndTextarea
+                    y={10 + 50 * 7}
+                    text={"Размер шрифта:"}
+                    selectedShape={selectedShape}
+                    stage={props.stage}
+                    elems={flashcards}
+                    setElems={setFlashcards}
+                    attrName={"word:fontSize"}
+                    attr={selectedShape.word.fontSize}
+                />
+                <TextAndList
+                    y={10 + 50 * 8}
+                    text={"Семейство шрифта:"}
+                    selectedShape={selectedShape}
+                    stage={props.stage}
+                    elems={flashcards}
+                    setElems={setFlashcards}
+                    attrName={"word:fontFamily"}
+                    attr={selectedShape.word.fontFamily}
+                    options={options}
+                    layer={props.layer}
+                />
+                <TextAndColor
+                    y={10 + 50 * 9}
+                    text={"Цвет:"}
+                    selectedShape={selectedShape}
+                    stage={props.stage}
+                    elems={flashcards}
+                    setElems={setFlashcards}
+                    attrName={"word:fill"}
+                    attr={selectedShape.word.fill}
+                />
+                <HeaderText
+                    text={"Значение:"}
+                    y={10 + 50 * 10}
+                />
+                <TextAndTextarea
+                    y={10 + 50 * 11}
+                    text={"Размер шрифта:"}
+                    selectedShape={selectedShape}
+                    stage={props.stage}
+                    elems={flashcards}
+                    setElems={setFlashcards}
+                    attrName={"meaning:fontSize"}
+                    attr={selectedShape.meaning.fontSize}
+                />
+                <TextAndList
+                    y={10 + 50 * 12}
+                    text={"Семейство шрифта:"}
+                    selectedShape={selectedShape}
+                    stage={props.stage}
+                    elems={flashcards}
+                    setElems={setFlashcards}
+                    attrName={"meaning:fontFamily"}
+                    attr={selectedShape.meaning.fontFamily}
+                    options={options}
+                    layer={props.layer}
+                />
+                <TextAndColor
+                    y={10 + 50 * 13}
+                    text={"Цвет:"}
+                    selectedShape={selectedShape}
+                    stage={props.stage}
+                    elems={flashcards}
+                    setElems={setFlashcards}
+                    attrName={"meaning:fill"}
+                    attr={selectedShape.meaning.fill}
+                />
+                <HeaderText
+                    text={"Кнопка:"}
+                    y={10 + 50 * 14}
+                />
+                <TextAndTextarea
+                    y={10 + 50 * 15}
+                    text={"Ширина:"}
+                    selectedShape={selectedShape}
+                    stage={props.stage}
+                    elems={flashcards}
+                    setElems={setFlashcards}
+                    attrName={"button:width"}
+                    attr={selectedShape.button.width}
+                />
+                <TextAndTextarea
+                    y={10 + 50 * 16}
+                    text={"Высота:"}
+                    selectedShape={selectedShape}
+                    stage={props.stage}
+                    elems={flashcards}
+                    setElems={setFlashcards}
+                    attrName={"button:height"}
+                    attr={selectedShape.button.height}
+                />
+                <TextAndTextarea
+                    y={10 + 50 * 17}
+                    text={"Радиус углов:"}
+                    selectedShape={selectedShape}
+                    stage={props.stage}
+                    elems={flashcards}
+                    setElems={setFlashcards}
+                    attrName={"button:cornerRadius"}
+                    attr={selectedShape.button.cornerRadius}
+                />
+                <TextAndColor
+                    y={10 + 50 * 18}
+                    text={"Цвет фона:"}
+                    selectedShape={selectedShape}
+                    stage={props.stage}
+                    elems={flashcards}
+                    setElems={setFlashcards}
+                    attrName={"button:backgroundFill"}
+                    attr={selectedShape.button.backgroundFill}
+                />
+                <TextAndTextarea
+                    y={10 + 50 * 19}
+                    text={"Размер шрифта:"}
+                    selectedShape={selectedShape}
+                    stage={props.stage}
+                    elems={flashcards}
+                    setElems={setFlashcards}
+                    attrName={"button:fontSize"}
+                    attr={selectedShape.button.fontSize}
+                />
+                <TextAndList
+                    y={10 + 50 * 20}
+                    text={"Семейство шрифта:"}
+                    selectedShape={selectedShape}
+                    stage={props.stage}
+                    elems={flashcards}
+                    setElems={setFlashcards}
+                    attrName={"button:fontFamily"}
+                    attr={selectedShape.button.fontFamily}
+                    options={options}
+                    layer={props.layer}
+                />
+                <TextAndColor
+                    y={10 + 50 * 21}
                     text={"Цвет шрифта:"}
                     selectedShape={selectedShape}
                     stage={props.stage}
                     elems={flashcards}
                     setElems={setFlashcards}
+                    attrName={"button:textFill"}
+                    attr={selectedShape.button.textFill}
                 />
-                <Text
-                    text={"Цвет фона:"}
-                    fontFamily={"Verdana"}
-                    fontSize={14}
-                    width={settingsWidth / 2}
-                    y={10}
-                    height={60}
-                    fill={"white"}
-
-                    align={"center"}
-                    verticalAlign={"middle"}
+                <HeaderText
+                    text={"Результат:"}
+                    y={10 + 50 * 22}
                 />
-                <Group
-                    width={settingsWidth / 2}
-                    height={60}
-                    x={settingsWidth / 2}
-                    y={10}
-                >
-                    <Circle
-                        fill={selectedShape?.fill}
-
-                        ref={colorRef}
-
-                        stroke={"white"}
-                        strokeWidth={3}
-
-                        x={settingsWidth / 4}
-                        y={25}
-                        radius={15}
-
-                        onClick={() => {
-                            editColorSettings(colorRef.current, props.stage, selectedShape, flashcards, setFlashcards);
-                        }}
-                    />
-                </Group>
-                <Text
-                    text={"Радиус углов:"}
-                    fontFamily={"Verdana"}
-                    fontSize={14}
-                    width={settingsWidth / 2}
-                    y={10 + 60 * 1}
-                    height={60}
-                    fill={"white"}
-
-                    align={"center"}
-                    verticalAlign={"middle"}
+                <TextAndTextarea
+                    y={10 + 50 * 23}
+                    text={"Размер шрифта:"}
+                    selectedShape={selectedShape}
+                    stage={props.stage}
+                    elems={flashcards}
+                    setElems={setFlashcards}
+                    attrName={"result:fontSize"}
+                    attr={selectedShape.result.fontSize}
                 />
-                <Text
-                    text={selectedShape?.radiusX}
-                    fontFamily={"monospace"}
-                    fill={"white"}
-                    fontSize={14}
-                    width={settingsWidth / 2}
-                    height={60}
-                    y={10 + 60 * 1}
-                    x={settingsWidth / 2}
-                    ref={radiusXRef}
-
-                    align={"center"}
-                    verticalAlign={"middle"}
-
-                    onClick={() => {
-                        editTextSettings(radiusXRef.current, props.stage, selectedShape, flashcards, setFlashcards);
-                    }}
+                <TextAndList
+                    y={10 + 50 * 24}
+                    text={"Семейство шрифта:"}
+                    selectedShape={selectedShape}
+                    stage={props.stage}
+                    elems={flashcards}
+                    setElems={setFlashcards}
+                    attrName={"result:fontFamily"}
+                    attr={selectedShape.result.fontFamily}
+                    options={options}
+                    layer={props.layer}
                 />
-                <Text
-                    text={"Вертикальный радиус:"}
-                    fontFamily={"Verdana"}
-                    fontSize={14}
-                    width={settingsWidth / 2}
-                    y={10 + 60 * 2}
-                    height={60}
-                    fill={"white"}
-
-                    align={"center"}
-                    verticalAlign={"middle"}
+                <TextAndColor
+                    y={10 + 50 * 25}
+                    text={"Цвет:"}
+                    selectedShape={selectedShape}
+                    stage={props.stage}
+                    elems={flashcards}
+                    setElems={setFlashcards}
+                    attrName={"result:fill"}
+                    attr={selectedShape.result.fill}
                 />
-                <Text
-                    text={selectedShape?.radiusY}
-                    fontFamily={"monospace"}
-                    fill={"white"}
-                    fontSize={14}
-                    width={settingsWidth / 2}
-                    height={60}
-                    y={10 + 60 * 2}
-                    x={settingsWidth / 2}
-                    ref={radiusYRef}
-
-                    align={"center"}
-                    verticalAlign={"middle"}
-
-                    onClick={() => {
-                        editTextSettings(radiusYRef.current, props.layer, props.stage, selectedShape, flashcards, setFlashcards);
-                    }}
-                />
-
             </Group>
         </React.Fragment>
     );

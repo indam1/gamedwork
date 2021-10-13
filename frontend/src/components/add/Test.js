@@ -4,21 +4,28 @@ export const mainTest = (props) => {
     props.setElem.get('test')((prevTests) => [
         ...prevTests,
         {
+            id: 'test' + props.getCount.get('test').toString(),
             curQuestion: 0,
             counter: props.getCount.get('common'),
             field: props.getGlob.get('field').toString(),
+
             x: mainWidth * 0.8 / 2,
             y: mainHeight * 0.7575 / 2,
-            height: 200,
-            width: 200,
+
+            height: 300,
+            width: 300,
+            fill: "#000002",
+            cornerRadius: 0,
+
             answer: {
-                height: 50,
-                width: 50,
+                height: 40,
+                width: 40,
                 backgroundFill: "#FFFFFE",
                 textFill: "#000002",
                 fontSize: 16,
                 cornerRadius: 0,
                 fontFamily: "Arial",
+                visible: false,
             },
             button: {
                 x: 0,
@@ -31,6 +38,7 @@ export const mainTest = (props) => {
                 fontSize: 16,
                 cornerRadius: 0,
                 fontFamily: "Arial",
+                visible: true,
             },
             theme: {
                 text: "Theme",
@@ -41,31 +49,50 @@ export const mainTest = (props) => {
                 fontFamily: "Arial",
             },
             question: {
-                text: "Question",
+                visible: false,
                 x: 0,
                 y: 40,
                 fontSize: 24,
                 fill: "#FFFFFE",
                 fontFamily: "Arial",
             },
+            questions: [
+                {
+                    text: "Question1",
+                    answers: [
+                        {
+                            x: 10,
+                            y: 100,
+                            text: "ответ 1",
+                        },
+                        {
+                            x: 70,
+                            y: 100,
+                            text: "ответ 2",
+                        },
+                        {
+                            x: 10,
+                            y: 200,
+                            text: "ответ 3",
+                        },
+                        {
+                            x: 70,
+                            y: 200,
+                            text: "ответ 4",
+                        }
+                    ],
+                    result: null,
+                },
+            ],
             result: {
                 x: 0,
                 y: 160,
                 fontSize: 24,
                 fill: "#FFFFFE",
                 text: "Result",
-                answer: null,
                 visible: false,
                 fontFamily: "Arial",
             },
-            questions: {
-                text: "",
-                answers: [],
-                result: null,
-            },
-            fill: "#000002",
-            id: 'test' + props.getCount.get('test').toString(),
-
         }
     ]);
     props.setCount.get('test')(props.getCount.get('test') + 1);

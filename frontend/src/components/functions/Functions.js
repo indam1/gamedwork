@@ -131,17 +131,45 @@ export const editTextSettings = (textNode, stage, selectedShape, elems, setElems
     function changeAttr() {
         const newAttrs = selectedShape;
         if (attr === "fontSize")
-            newAttrs.fontSize = textarea.value;
+            newAttrs.fontSize = Number(textarea.value);
         else if (attr === "radiusX")
-            newAttrs.radiusX = textarea.value;
+            newAttrs.radiusX = Number(textarea.value);
         else if (attr === "radiusY")
-            newAttrs.radiusY = textarea.value;
+            newAttrs.radiusY = Number(textarea.value);
         else if (attr === "height")
-            newAttrs.height = textarea.value;
+            newAttrs.height = Number(textarea.value);
         else if (attr === "width")
-            newAttrs.width = textarea.value;
+            newAttrs.width = Number(textarea.value);
         else if (attr === "src")
             newAttrs.src = textarea.value;
+        else if (attr === "cornerRadius")
+            newAttrs.cornerRadius = Number(textarea.value);
+        else if (attr === "theme:fontSize")
+            newAttrs.theme.fontSize = Number(textarea.value);
+        else if (attr === "button:fontSize")
+            newAttrs.button.fontSize = Number(textarea.value);
+        else if (attr === "answer:fontSize")
+            newAttrs.answer.fontSize = Number(textarea.value);
+        else if (attr === "word:fontSize")
+            newAttrs.word.fontSize = Number(textarea.value);
+        else if (attr === "meaning:fontSize")
+            newAttrs.meaning.fontSize = Number(textarea.value);
+        else if (attr === "result:fontSize")
+            newAttrs.result.fontSize = Number(textarea.value);
+        else if (attr === "button:width")
+            newAttrs.button.width = Number(textarea.value);
+        else if (attr === "answer:width")
+            newAttrs.answer.width = Number(textarea.value);
+        else if (attr === "button:height")
+            newAttrs.button.height = Number(textarea.value);
+        else if (attr === "answer:height")
+            newAttrs.answer.height = Number(textarea.value);
+        else if (attr === "button:cornerRadius")
+            newAttrs.button.cornerRadius = Number(textarea.value);
+        else if (attr === "answer:cornerRadius")
+            newAttrs.button.cornerRadius = Number(textarea.value);
+        else if (attr === "question:fontSize")
+            newAttrs.question.fontSize = Number(textarea.value);
         const elms = elems.slice();
         elms[elms.findIndex((el) => el.id === selectedShape?.id)] = newAttrs;
         setElems(elms);
@@ -149,7 +177,7 @@ export const editTextSettings = (textNode, stage, selectedShape, elems, setElems
 
     function removeTextarea() {
         textarea.parentNode.removeChild(textarea);
-        window.removeEventListener('click', handleOutsideClick);
+        window.removeEventListener('mousedown', handleOutsideClick);
         textNode.show();
     }
 
@@ -209,11 +237,11 @@ export const editTextSettings = (textNode, stage, selectedShape, elems, setElems
     }
 
     setTimeout(() => {
-        window.addEventListener('click', handleOutsideClick);
+        window.addEventListener('mousedown', handleOutsideClick);
     });
 }
 
-export const editListSettings = (listNode, layer, stage, options, selectedShape, elems, setElems) => {
+export const editListSettings = (listNode, layer, stage, options, selectedShape, elems, setElems, attr) => {
     var textPosition = listNode.absolutePosition();
 
     const group1 = new Konva.Group({
@@ -250,12 +278,32 @@ export const editListSettings = (listNode, layer, stage, options, selectedShape,
         group.add(rect);
         group.add(text);
 
-        group.on("click", (e) => {
+        function changeAttr(e) {
             const newAttrs = selectedShape;
-            newAttrs.fontFamily = e.currentTarget.children[1].text();
+            if (attr === "fontFamily")
+                newAttrs.fontFamily = e.currentTarget.children[1].text();
+            else if (attr === "theme:fontFamily")
+                newAttrs.theme.fontFamily = e.currentTarget.children[1].text();
+            else if (attr === "button:fontFamily")
+                newAttrs.button.fontFamily = e.currentTarget.children[1].text();
+            else if (attr === "word:fontFamily")
+                newAttrs.word.fontFamily = e.currentTarget.children[1].text();
+            else if (attr === "meaning:fontFamily")
+                newAttrs.meaning.fontFamily = e.currentTarget.children[1].text();
+            else if (attr === "result:fontFamily")
+                newAttrs.result.fontFamily = e.currentTarget.children[1].text();
+            else if (attr === "question:fontFamily")
+                newAttrs.result.fontFamily = e.currentTarget.children[1].text();
+            else if (attr === "answer:fontFamily")
+                newAttrs.answer.fontFamily = e.currentTarget.children[1].text();
             const elms = elems.slice();
             elms[elms.findIndex((el) => el.id === selectedShape?.id)] = newAttrs;
             setElems(elms);
+        }
+
+        group.on("click", (e) => {
+            changeAttr(e);
+
             group1.visible(false);
             group1.destroy();
         })
@@ -275,7 +323,7 @@ export const editListSettings = (listNode, layer, stage, options, selectedShape,
     layer.current.add(group1);
 }
 
-export const editColorSettings = (colorNode, stage, selectedShape, elems, setElems) => {
+export const editColorSettings = (colorNode, stage, selectedShape, elems, setElems, attr) => {
     colorNode.hide();
 
     var textPosition = colorNode.absolutePosition();
@@ -300,20 +348,42 @@ export const editColorSettings = (colorNode, stage, selectedShape, elems, setEle
 
     function removeTextarea() {
         colorPicker.parentNode.removeChild(colorPicker);
-        window.removeEventListener('click', handleOutsideClick);
-        console.log("hey");
+        window.removeEventListener('mousedown', handleOutsideClick);
 
         colorNode.show();
+    }
+
+    function changeAttr() {
+        const newAttrs = selectedShape;
+        if (attr === "fill")
+            newAttrs.fill = colorPicker.value;
+        else if (attr === "theme:fill")
+            newAttrs.theme.fill = colorPicker.value;
+        else if (attr === "button:backgroundFill")
+            newAttrs.button.backgroundFill = colorPicker.value;
+        else if (attr === "button:textFill")
+            newAttrs.button.textFill = colorPicker.value;
+        else if (attr === "answer:backgroundFill")
+            newAttrs.answer.backgroundFill = colorPicker.value;
+        else if (attr === "answer:textFill")
+            newAttrs.answer.textFill = colorPicker.value;
+        else if (attr === "word:fill")
+            newAttrs.word.fill = colorPicker.value;
+        else if (attr === "meaning:fill")
+            newAttrs.meaning.fill = colorPicker.value;
+        else if (attr === "result:fill")
+            newAttrs.result.fill = colorPicker.value;
+        else if (attr === "question:fill")
+            newAttrs.question.fill = colorPicker.value;
+        const elms = elems.slice();
+        elms[elms.findIndex((el) => el.id === selectedShape?.id)] = newAttrs;
+        setElems(elms);
     }
 
     colorPicker.addEventListener('keydown', function (e) {
         // hide on enter
         if (e.keyCode === 13) {
-            const newAttrs = selectedShape;
-            newAttrs.fill = colorPicker.value;
-            const elms = elems.slice();
-            elms[elms.findIndex((el) => el.id === selectedShape?.id)] = newAttrs;
-            setElems(elms);
+            changeAttr();
 
             colorNode.fill(colorPicker.value);
             removeTextarea();
@@ -327,11 +397,7 @@ export const editColorSettings = (colorNode, stage, selectedShape, elems, setEle
 
     function handleOutsideClick(e) {
         if (e.target !== colorPicker) {
-            const newAttrs = selectedShape;
-            newAttrs.fill = colorPicker.value;
-            const elms = elems.slice();
-            elms[elms.findIndex((el) => el.id === selectedShape?.id)] = newAttrs;
-            setElems(elms);
+            changeAttr();
 
             colorNode.fill(colorPicker.value);
             removeTextarea();
@@ -340,6 +406,6 @@ export const editColorSettings = (colorNode, stage, selectedShape, elems, setEle
 
     setTimeout(() => {
 
-        window.addEventListener('click', handleOutsideClick);
+        window.addEventListener('mousedown', handleOutsideClick);
     });
 }

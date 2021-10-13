@@ -63,7 +63,8 @@ export const changeQuestionPosition = (onChange, shapeProps, e) => {
             text: shapeProps.questions[shapeProps.curQuestion]?.text,
             fontSize: shapeProps.question.fontSize,
             fill: shapeProps.question.fill,
-            fontFamily: shapeProps.question.fontFamily
+            fontFamily: shapeProps.question.fontFamily,
+            visible: shapeProps.question.visible,
         },
     });
 }

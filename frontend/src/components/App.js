@@ -391,6 +391,7 @@ function App() {
 
                     {isEditorMode && (
                         <GameElements
+                            getElem={getElements}
                             setElem={setElements}
                             setCount={setCounter}
                             getCount={getCounter}

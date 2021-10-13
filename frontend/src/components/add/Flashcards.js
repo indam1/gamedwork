@@ -12,11 +12,13 @@ export const mainFlashcards = (props) => {
             width: 200,
             fontSize: 24,
             cornerRadius: 0,
+            fill: "#000002",
             theme: {
                 text: "Theme",
                 x: 0,
                 y: 0,
                 fontSize: 32,
+                fontFamily: "Arial",
                 fill: "#FFFFFE",
             },
             word: {
@@ -24,6 +26,7 @@ export const mainFlashcards = (props) => {
                 x: 0,
                 y: 35,
                 fontSize: 20,
+                fontFamily: "Arial",
                 fill: "#FFFFFE",
             },
             meaning: {
@@ -31,6 +34,7 @@ export const mainFlashcards = (props) => {
                 x: 0,
                 y: 60,
                 fontSize: 20,
+                fontFamily: "Arial",
                 fill: "#FFFFFE",
             },
             input: {
@@ -49,6 +53,7 @@ export const mainFlashcards = (props) => {
                 width: 40,
                 height: 40,
                 fontSize: 16,
+                fontFamily: "Arial",
                 backgroundFill: "#FFFFFE",
                 textFill: "#000002",
                 text: "start",
@@ -57,13 +62,13 @@ export const mainFlashcards = (props) => {
                 x: 0,
                 y: 180,
                 fontSize: 14,
+                fontFamily: "Arial",
                 fill: "#FFFFFE",
                 text: "result",
                 answer: null,
                 visible: false,
             },
             pairs: [],
-            fill: "#000002",
             id: 'flashcards' + props.getCount.get('flashcards').toString(),
         }
     ]);

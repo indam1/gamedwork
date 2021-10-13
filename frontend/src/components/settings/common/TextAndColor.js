@@ -27,7 +27,7 @@ function TextAndColor(props) {
                 y={props.y}
             >
                 <Circle
-                    fill={props.selectedShape?.fill}
+                    fill={props.attr}
 
                     ref={colorRef}
 
@@ -39,7 +39,7 @@ function TextAndColor(props) {
                     radius={15}
 
                     onClick={() => {
-                        editColorSettings(colorRef.current, props.stage, props.selectedShape, props.elems, props.setElems);
+                        editColorSettings(colorRef.current, props.stage, props.selectedShape, props.elems, props.setElems, props.attrName);
                     }}
                 />
             </Group>

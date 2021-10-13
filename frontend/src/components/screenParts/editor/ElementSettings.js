@@ -55,6 +55,8 @@ function ElementSettings(props) {
                 />
                 {settings === 'Test' && (
                     <TestSettings
+                        layer={props.layer}
+                        stage={props.stage}
                         getElem={props.getElem}
                         setElem={props.setElem}
                         getGlob={props.getGlob}

@@ -1,9 +1,9 @@
-import React, {useRef} from "react";
-import {Circle, Group, Text} from "react-konva";
-import {mainWidth, settingsWidth} from "../functions/Consts";
-import {editColorSettings, editListSettings, editTextSettings} from "../functions/Functions";
+import React from "react";
+import {Group} from "react-konva";
+import {mainWidth} from "../functions/Consts";
 import TextAndColor from "./common/TextAndColor";
 import TextAndTextarea from "./common/TextAndTextarea";
+import TextAndList from "./common/TextAndList";
 
 function TextSettings(props) {
 
@@ -12,10 +12,6 @@ function TextSettings(props) {
     const selectedShape = props.getGlob.get('selectedShape');
     const texts = props.getElem.get('text');
     const setTexts = props.setElem.get('text');
-
-    const fontSizeRef = useRef();
-    const fontFamilyRef = useRef();
-    const colorRef = useRef();
 
     return (
         <React.Fragment>
@@ -34,38 +30,18 @@ function TextSettings(props) {
                     attrName={"fontSize"}
                     attr={selectedShape.fontSize}
                 />
-
-                <Text
+                <TextAndList
+                    y={10 + 60 * 1}
                     text={"Семейство шрифта:"}
-                    fontFamily={"Verdana"}
-                    fontSize={14}
-                    width={settingsWidth / 2}
-                    height={60}
-                    y={10 + 60 * 1}
-                    fill={"white"}
-
-                    align={"center"}
-                    verticalAlign={"middle"}
+                    selectedShape={selectedShape}
+                    stage={props.stage}
+                    elems={texts}
+                    setElems={setTexts}
+                    attrName={"fontFamily"}
+                    attr={selectedShape.fontFamily}
+                    options={options}
+                    layer={props.layer}
                 />
-                <Text
-                    text={selectedShape?.fontFamily}
-                    fontFamily={"monospace"}
-                    fill={"white"}
-                    fontSize={14}
-                    width={settingsWidth / 2}
-                    height={60}
-                    x={settingsWidth / 2}
-                    y={10 + 60 * 1}
-                    ref={fontFamilyRef}
-
-                    align={"center"}
-                    verticalAlign={"middle"}
-
-                    onClick={(e) => {
-                        editListSettings(fontFamilyRef.current, props.layer, props.stage, options, selectedShape, texts, setTexts);
-                    }}
-                />
-
                 <TextAndColor
                     y={10 + 60 * 2}
                     text={"Цвет:"}
