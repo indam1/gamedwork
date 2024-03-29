@@ -1,0 +1,21 @@
+{
+  "ignorePatterns": [
+    ".nuxt",
+    ".output",
+    "dist",
+    "public",
+    "node_modules"
+  ],
+  "plugins": ["jsdoc", "import"],
+  "extends": [
+    "plugin:jsdoc/recommended",
+    "@nuxt/eslint-config",
+    "plugin:import/typescript"
+  ],
+  "rules": {
+    "jsdoc/require-jsdoc": "off",
+    "vue/component-tags-order": ["error", {
+      "order": ["template", "script", "style"]
+    }]
+  }
+}
