@@ -2,6 +2,20 @@ export default function () {
     const supabase = useSupabaseClient();
     const user = useSupabaseUser();
 
+    const createCourse = async (name: string, link_id: string | null) => {
+        const { data: course, error } = await supabase.from('course')
+            .upsert({ name, user_id: user.value.id, link_id: link_id || null })
+            .select('id, link_id')
+            .limit(1)
+            .single();
+
+        if (error) {
+            throw new Error(error.message);
+        }
+
+        return { courseId: course.link_id ?? course.id };
+    }
+
     const fetchCourses = async () => {
         const { data: courses } = await supabase.from('course')
             .select('name, id, link_id')
@@ -95,5 +109,20 @@ export default function () {
         return { course, modules, lessons, steps, completedSteps };
     }
 
-    return { fetchCourseData, fetchAllCourseData, fetchCourses, completeStep, stepInfoById };
+    const fetchAllUserCourses = async () => {
+        const { data: courses } = await supabase.from('course')
+            .select('name, id, link_id')
+            .eq('user_id', user.value.id)
+        return { courses: courses ?? []};
+    }
+
+    return {
+        fetchCourseData,
+        fetchAllCourseData,
+        fetchCourses,
+        completeStep,
+        stepInfoById,
+        fetchAllUserCourses,
+        createCourse
+    };
 }

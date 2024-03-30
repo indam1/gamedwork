@@ -40,7 +40,6 @@ export const useWebSocketStore = defineStore('websocket', () => {
             }
 
             if (data.event === 6) {
-                console.log('YO');
                 invites.value.push(data.payload);
                 return;
             }
@@ -73,12 +72,17 @@ export const useWebSocketStore = defineStore('websocket', () => {
         send(JSON.stringify(payload));
     }
 
+    const closeInvite = (initiator: string) => {
+        invites.value = invites.value.filter(invite => invite.initiator !== initiator);
+    }
+
     return {
         active,
         sendEvent,
         log,
         clear,
         messages,
-        invites
+        invites,
+        closeInvite,
     };
 })
