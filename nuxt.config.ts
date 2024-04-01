@@ -22,7 +22,8 @@ export default defineNuxtConfig({
         '@nuxtjs/tailwindcss',
         '@nuxtjs/supabase',
         ['@nuxtjs/eslint-module', { fix: true }],
-        '@vueuse/nuxt'
+        '@vueuse/nuxt',
+        // '@nuxtjs/storybook'
     ],
     tailwindcss: {
         editorSupport: true

@@ -1,4 +1,5 @@
 export const useCourseStore = defineStore('course-store', () => {
+    // ToDo organize data fetching and transforming for performance. Probably delete store and make only composable
     const currentCourse = ref();
     const currentLessonId = ref();
     const currentStepId = ref();
@@ -43,6 +44,7 @@ export const useCourseStore = defineStore('course-store', () => {
         currentStepId.value = parseInt(step, 10);
     }
 
+    // ToDo do we need store for pages?
     function patchCourse(data: { lessons?: any[], modules?: any[], steps?: any[], course?: any, completedSteps?: any[] }) {
         if (data.course) {
             currentCourse.value = data.course;
@@ -73,20 +75,23 @@ export const useCourseStore = defineStore('course-store', () => {
         completedSteps.value = [];
     }
 
+    function getNextElement(currentId: number, sortedElements: unknown[]) {
+        const currentIndex = sortedElements.findIndex(item => item.id === currentId)
+        return sortedElements[currentIndex + 1]
+    }
+
     function getNextStep() {
         if (!currentStepId.value || !currentLessonId.value) {
             throw new Error('No current step');
         }
 
-        const currentStepIndex = sortedSteps.value.findIndex(item => item.id === currentStepId.value)
         let nextLessonId = currentLessonId.value
-        let nextStep = sortedSteps.value[currentStepIndex + 1]
+        let nextStep = getNextElement(currentStepId.value, sortedSteps.value);
+        // ToDo extract without nested if
         if (!nextStep) {
-            const currentLessonIndex = sortedLessons.value.findIndex(item => item.id === currentLessonId.value)
-            const nextLesson = sortedLessons.value[currentLessonIndex + 1]
+            const nextLesson = getNextElement(currentLessonId.value, sortedLessons.value);
             if (!nextLesson) {
-                const currentModuleIndex = sortedModules.value.findIndex(item => item.id === currentModuleId.value)
-                const nextModule = sortedModules.value[currentModuleIndex + 1]
+                const nextModule = getNextElement(currentModuleId.value, sortedModules.value);
                 if (!nextModule) {
                     // ToDo handle end
                     throw new Error('No next module');
@@ -94,7 +99,7 @@ export const useCourseStore = defineStore('course-store', () => {
 
                 nextLessonId = courseLessons.value.find(item => item.module_id === nextModule.id && item.list_order === 0).id
             } else {
-                nextLessonId = sortedLessons.value[currentLessonIndex + 1].id
+                nextLessonId = nextLesson.id
             }
 
             nextStep = courseSteps.value.find(item => item.lesson_id === nextLessonId && item.list_order === 0)

@@ -7,7 +7,7 @@
       >
         Need help? Open chat and ask, somebody definitely can help you.
       </button>
-      <WebSocketChatBox v-if="isOpenedChat" />
+      <WebSocketChatBox v-if="isOpenedChat || route.query.help" />
       <div>{{ courseStore.currentCourseName }}</div>
       <ol class="overflow-y-auto">
         <li

@@ -40,10 +40,11 @@
 </template>
 
 <script setup lang="ts">
+const route = useRoute();
 const courseStore = useCourseStore();
 const webSocketStore = useWebSocketStore();
 const user = useSupabaseUser();
-const { clear, sendEvent } = webSocketStore;
+const { clear, sendEvent, closeInvite } = webSocketStore;
 
 const messageInput = ref<string>('');
 
@@ -59,7 +60,9 @@ const sendMessage = () => {
     messageInput.value = '';
 };
 
-if (user.value) {
+if (route.query.help) {
+  closeInvite(route.query.help);
+} else if (user.value) {
   sendEvent({event: 8, payload: {initiator: user?.value.id, step_id: courseStore.currentStepId}});
 }
 </script>

@@ -26,7 +26,7 @@
 
 <script setup lang="ts">
 const webSocketStore = useWebSocketStore();
-const { sendEvent, closeInvite } = webSocketStore;
+const { sendEvent } = webSocketStore;
 const { stepInfoById } = useSupabaseFetching();
 
 const pending = ref(false);
@@ -34,8 +34,7 @@ const acceptHelp = async (invite) => {
   pending.value = true;
   const { courseId, lessonId, stepId } = await stepInfoById(invite.step_id);
   sendEvent({ event: 8, payload: { initiator: invite.initiator, step_id: invite.step_id } });
-  closeInvite(invite.initiator);
-  return navigateTo(buildCourseLink(courseId, lessonId, stepId));
+  return navigateTo(`${buildCourseLink(courseId, lessonId, stepId)}?help=${invite.initiator}`);
 }
 </script>
 

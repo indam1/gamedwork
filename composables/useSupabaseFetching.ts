@@ -54,7 +54,6 @@ export default function () {
     }
 
     const fetchCompletedSteps = async (stepIds) => {
-        console.log(user.value.id);
         const { data: completedSteps } = await supabase.from('completed')
             .select('step_id')
             .eq('user_id', user.value.id)
@@ -97,7 +96,7 @@ export default function () {
         }
     }
 
-    // ToDo make single db query
+    // ToDo create a single db query with inner joins
     const fetchAllCourseData = async (courseId) => {
         const [course, modules] = await Promise.all([
             fetchCourseData(courseId),
@@ -116,6 +115,75 @@ export default function () {
         return { courses: courses ?? []};
     }
 
+    const updateOrder = async (table, id, list_order) => {
+        const { error } = await supabase.from(table)
+            .update({ list_order })
+            .eq('id', id);
+        if (error) {
+            throw new Error(error.message);
+        }
+        return true;
+    }
+
+    const updateModuleOrder = async (moduleId, list_order) => {
+        return updateOrder('module', moduleId, list_order);
+    }
+
+    const updateLessonOrder = async (lessonId, list_order) => {
+        return updateOrder('lesson', lessonId, list_order);
+    }
+
+    const editName = async (table, id, name) => {
+        const { error } = await supabase.from(table)
+            .update({ name })
+            .eq('id', id);
+        if (error) {
+            throw new Error(error.message);
+        }
+        return true;
+    }
+
+    const updateModuleName = async (moduleId, name) => {
+        return editName('module', moduleId, name);
+    }
+
+    const updateLessonName = async (lessonId, name) => {
+        return editName('lesson', lessonId, name);
+    }
+
+    const createModule = async (courseId, list_order) => {
+        const { error, data } = await supabase.from('module')
+            .insert({ course_id: courseId, list_order, name: `Module ${list_order + 1}` })
+            .select('name, id, course_id, list_order')
+            .limit(1)
+            .single();
+        if (error) {
+            throw new Error(error.message);
+        }
+
+        return { module: data };
+    }
+
+    const createLesson = async (moduleId, list_order) => {
+        const { error, data } = await supabase.from('lesson')
+            .insert({ module_id: moduleId, list_order, name: `Lesson ${list_order + 1}` })
+            .select()
+            .limit(1)
+            .single();
+        if (error) {
+            throw new Error(error.message);
+        }
+
+        const { error: stepError } = await supabase.from('step')
+            .insert({ lesson_id: data.id, name: 'Step 1', list_order: 0 })
+
+        if (stepError) {
+            throw new Error(stepError.message);
+        }
+
+        return { lesson: data };
+    }
+
     return {
         fetchCourseData,
         fetchAllCourseData,
@@ -123,6 +191,12 @@ export default function () {
         completeStep,
         stepInfoById,
         fetchAllUserCourses,
-        createCourse
+        createCourse,
+        updateModuleOrder,
+        updateLessonOrder,
+        updateModuleName,
+        updateLessonName,
+        createModule,
+        createLesson,
     };
 }

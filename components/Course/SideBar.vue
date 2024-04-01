@@ -1,7 +1,7 @@
 <template>
   <div
     v-show="isShownSideBar || isTempShownSideBar"
-    class="fixed flex flex-col h-full top-0 z-10 bg-gray-300 overflow-y-auto pt-16 pl-4 gap-4 w-[10%]"
+    class="fixed flex flex-col h-full top-0 z-10 bg-gray-300 overflow-y-auto pt-16 pl-4 gap-4 w-[240px]"
     @mouseover="isTempShownSideBar = true"
     @mouseleave="isTempShownSideBar = false"
   >

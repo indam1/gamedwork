@@ -10,7 +10,9 @@ Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introdu
 
 ### - ACCESSIBILITY
 
-### - FULL TYPESCRIPT SUPPORT
+### - FULL TYPESCRIPT SUPPORT (+ SUPABASE TSC)
+
+### - STYLING
 
 ## Setup
 

@@ -14,6 +14,11 @@ const { data: { users } } = await supabase.auth.admin.listUsers()
 const userIds = users.map(user => user.id)
 
 async function seedTransactions() {
+  const { error: completedStepError } = await supabase.from('completed').delete().gte('id', 0)
+  if (completedStepError) {
+    throw new Error(`Error deleting existing data: ${completedStepError.message}`)
+  }
+
   for (const table of ['step', 'lesson', 'module', 'course']) {
     // Delete existing data
     const { error } = await supabase.from(table).delete().gte('id', 0)

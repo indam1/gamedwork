@@ -1,3 +1,4 @@
+// ToDo connect with supabase
 export function addMessage(user: string, message: string) {
 }
 
