@@ -1,8 +1,10 @@
+export type WebSocketRoomInvite = { initiator: string, step_id: number };
+
 export const useWebSocketStore = defineStore('websocket', () => {
     const user = useSupabaseUser();
     const active = ref(false);
     const messages = ref<Array<{ text: string, user: string }>>([]);
-    const invites = ref<Array<{ initiator: string, step_id: string }>>([]);
+    const invites = ref<WebSocketRoomInvite[]>([]);
 
     const reqUrl = useRequestURL();
     const host = reqUrl.host;

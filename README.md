@@ -1,20 +1,41 @@
 # Information
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+In progress. Project at the pre-MVP stage.
 
-## !ToDo
+LMS focused on interactions between students
 
-### - SEO
+## Features and current ROADMAP
 
-### - RESPONSIVE LAYOUT (PWA?)
+### Communication 
 
-### - ACCESSIBILITY
+- [x] Real-time in-course chat based on websocket that provide communication between students to help each other
+- [ ] Comments
+- [ ] In-course video chat based on WebRTC
 
-### - FULL TYPESCRIPT SUPPORT (+ SUPABASE TSC)
+### Courses
 
-### - STYLING
+- [x] User-friendly and flexible course structure settings
+- [ ] Content editor
+- [ ] Support full functionality for texts and video
+- [ ] Provide basic interactions for knowledge testing during the course
+- [ ] Integrate code-editor
+
+## ROADMAP after functional MVP for readability and scalability to support clean architecture and code
+
+- [ ] DESIGN AND STYLING
+- [ ] SEO
+- [ ] RESPONSIVE LAYOUT (PWA?)
+- [ ] ACCESSIBILITY
+- [ ] FULL TYPESCRIPT SUPPORT (+ SUPABASE TSC)
+
+## ROADMAP improvements after all
+
+- [ ] Gamification
+- [ ] Analytics
 
 ## Setup
+
+Detailed information about the full setup will come later
 
 Make sure to install the dependencies:
 
@@ -83,5 +104,3 @@ yarn preview
 # bun
 bun run preview
 ```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.

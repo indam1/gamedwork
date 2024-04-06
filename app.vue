@@ -25,12 +25,14 @@
 </template>
 
 <script setup lang="ts">
+import type {WebSocketRoomInvite} from "~/stores/useWebSocketStore";
+
 const webSocketStore = useWebSocketStore();
 const { sendEvent } = webSocketStore;
 const { stepInfoById } = useSupabaseFetching();
 
 const pending = ref(false);
-const acceptHelp = async (invite) => {
+const acceptHelp = async (invite: WebSocketRoomInvite) => {
   pending.value = true;
   const { courseId, lessonId, stepId } = await stepInfoById(invite.step_id);
   sendEvent({ event: 8, payload: { initiator: invite.initiator, step_id: invite.step_id } });
@@ -40,7 +42,7 @@ const acceptHelp = async (invite) => {
 
 <style lang="postcss">
 body {
-  font-family: "Verdana", sans-serif;
+  font-family: Rubik, sans-serif;
   font-size: 16px;
   font-weight: 400;
 }

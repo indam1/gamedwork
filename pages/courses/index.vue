@@ -6,20 +6,21 @@
       <div v-if="pending">
         Loading...
       </div>
-      <div
+      <UCard
         v-for="course in data.courses"
         v-else
         :key="course.id"
         class="bg-gray-100 min-h-52 rounded-2xl flex flex-col justify-between items-center p-8 shadow-2xl"
+        @click="navigateTo(`/courses/${course.link_id ?? course.id}`)"
       >
-        {{ course.name }}
-        <NuxtLink
-          class="bg-green-400 w-1/2 text-center"
-          :to="`/courses/${course.link_id ?? course.id}`"
-        >
-          Enroll
-        </NuxtLink>
-      </div>
+        <template #header />
+        <template #default>
+          {{ course.name }}
+        </template>
+        <template #footer>
+          {{ course.description }}
+        </template>
+      </UCard>
     </div>
   </div>
 </template>
@@ -31,7 +32,7 @@ const { data, pending } = await useLazyAsyncData(
   'courses',
   async () => fetchCourses(),
   {
-    getCachedData: key => tempCachedData(key, 15),
+    getCachedData: key => tempCachedData(key, 120),
     transform: input => ({ ...input, fetchedAt: new Date() }),
   },
 )

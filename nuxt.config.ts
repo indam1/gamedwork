@@ -19,15 +19,13 @@ export default defineNuxtConfig({
     },
     modules: [
         '@pinia/nuxt',
-        '@nuxtjs/tailwindcss',
         '@nuxtjs/supabase',
         ['@nuxtjs/eslint-module', { fix: true }],
         '@vueuse/nuxt',
+        '@nuxt/ui',
+        // '@nuxt/image',
         // '@nuxtjs/storybook'
     ],
-    tailwindcss: {
-        editorSupport: true
-    },
     supabase: {
         redirectOptions: {
             login: '/',
@@ -35,4 +33,13 @@ export default defineNuxtConfig({
             include: ['/courses/**/**', '/create'],
         },
     },
+    app: {
+        head: {
+            link: [
+                { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+                { rel: 'preconnect', href: 'https://fonts.gstatic.com' },
+                { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap' },
+            ],
+        }
+    }
 })

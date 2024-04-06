@@ -1,146 +1,151 @@
 <template>
   <div class="flex flex-row w-full py-16">
-    <SlickList
-      v-model:list="sortedModules"
-      use-drag-handle
-      class="px-8 w-full"
-      axis="y"
-      lock-axis="y"
-      :lock-to-container-edges="true"
-      :lock-offset="0"
-      :distance="1"
-      @update:list="updateModules"
-      @sort-end="disableChangeModules"
-    >
-      <SlickItem
-        v-for="(module, i) in sortedModules"
-        :key="module.id"
-        :index="i"
-        :disabled="pendingChange"
-        class="select-none"
+    <div class="flex flex-col w-full gap-4">
+      <SlickList
+        v-model:list="sortedModules"
+        use-drag-handle
+        class="px-8 w-full flex flex-col gap-4"
+        axis="y"
+        lock-axis="y"
+        :lock-to-container-edges="true"
+        :lock-offset="0"
+        :distance="1"
+        @update:list="updateModules<Tables<'module'>>"
+        @sort-end="disableChangeModules"
       >
-        <div class="bg-blue-200 border-[1px] p-1 border-gray-400 z-100 flex flex-row items-center">
-          <div>
-            <span v-show="!isEditModuleMode(module.id)">{{ module.name }}</span>
-            <input
-              v-if="isEditModuleMode(module.id)"
-              ref="inputModule"
-              :disabled="pendingChange"
-              :data-module-id="module.id"
-              class="bg-blue-200 border-[1px] border-gray-400"
-              :value="module.name"
-              @input.prevent
-            >
-          </div>
-          <button
-            :disabled="pendingChange"
-            class="bg-gray-100 p-1 rounded-xl ml-2 text-sm"
-            @click.prevent="toggleEditModuleMode(module.id)"
-          >
-            Edit
-          </button>
-          <button
-            v-show="isEditModuleMode(module.id)"
-            :disabled="pendingChange"
-            class="bg-gray-100 p-1 rounded-xl ml-2 text-sm"
-            @click="editModuleName(i)"
-          >
-            Save
-          </button>
-          <button
-            :disabled="pendingChange"
-            class="bg-gray-100 p-1 rounded-xl ml-auto text-sm"
-            @click.prevent="toggleModule(module.id)"
-          >
-            {{ !sortedLessons[module.id]?.length ? 'No lessons' : 'Show Lessons' }}
-          </button>
-          <DragHandle class="bg-gray-100 p-1 ml-2 rounded-xl text-sm">
-            Drag me
-          </DragHandle>
-        </div>
-        <!-- Lack of distance breaks update -->
-        <SlickList
-          v-show="isOpenedModule(module.id)"
-          v-model:list="sortedLessons[module.id]"
-          class="pl-8"
-          axis="y"
-          lock-axis="y"
-          :distance="1"
-          group="module"
-          use-drag-handle
-          @update:list="updateLessons"
-          @sort-end="disableChangeLessons"
+        <SlickItem
+          v-for="(module, i) in sortedModules"
+          :key="module.id"
+          :index="i"
+          :disabled="pendingChange"
+          class="select-none"
         >
-          <SlickItem
-            v-for="(lesson, i2) in sortedLessons[module.id]"
-            :key="lesson.id"
-            :disabled="pendingChange"
-            :index="i2"
-          >
-            <div class="bg-gray-200 border-[1px] p-1 border-gray-400 select-none flex flex-row items-center">
-              <div>
-                <span v-show="!isEditLessonMode(lesson.id)">{{ lesson.name }}</span>
-                <input
-                  v-if="isEditLessonMode(lesson.id)"
-                  ref="inputLesson"
-                  :disabled="pendingChange"
-                  :data-lesson-id="lesson.id"
-                  class="bg-gray-200 border-[1px] border-gray-400"
-                  :value="lesson.name"
-                  @input.prevent
-                >
+          <div class="bg-blue-200 border-[1px] p-1 border-gray-400 z-100 flex flex-row items-center">
+            <div>
+              <div v-show="!isEditModuleMode(module.id)">
+                <span class="text-gray-800 font-bold mr-2">{{ i + 1 }}.</span>
+                <span>{{ module.name }}</span>
               </div>
-              <button
+              <input
+                v-if="isEditModuleMode(module.id)"
+                ref="inputModule"
                 :disabled="pendingChange"
-                class="bg-gray-100 p-1 rounded-xl ml-2 text-sm"
-                @click.prevent="toggleEditLessonMode(lesson.id)"
+                :data-module-id="module.id"
+                class="bg-blue-200 border-[1px] border-gray-400"
+                :value="module.name"
+                @input.prevent
               >
-                Edit
-              </button>
-              <button
-                v-show="isEditLessonMode(lesson.id)"
-                :disabled="pendingChange"
-                class="bg-gray-100 p-1 rounded-xl ml-2 text-sm"
-                @click="editLessonName(module.id, i2)"
-              >
-                Save
-              </button>
-              <DragHandle class="bg-gray-100 p-1 rounded-xl text-sm ml-auto">
-                Drag me
-              </DragHandle>
             </div>
-          </SlickItem>
-          <SlickItem
-            :disabled="true"
-            :index="sortedLessons[module.id].length"
+            <button
+              :disabled="pendingChange"
+              class="bg-gray-100 p-1 rounded-xl ml-2 text-sm"
+              @click.prevent="toggleEditModuleMode(module.id)"
+            >
+              Edit
+            </button>
+            <button
+              v-show="isEditModuleMode(module.id)"
+              :disabled="pendingChange"
+              class="bg-gray-100 p-1 rounded-xl ml-2 text-sm"
+              @click="editModuleName(i)"
+            >
+              Save
+            </button>
+            <button
+              :disabled="pendingChange"
+              class="bg-gray-100 p-1 rounded-xl ml-auto text-sm"
+              @click.prevent="toggleModule(module.id)"
+            >
+              {{ !moduleLessons[module.id]?.length ? 'No lessons' : 'Show Lessons' }}
+            </button>
+            <DragHandle class="bg-gray-100 p-1 ml-2 rounded-xl text-sm">
+              Drag me
+            </DragHandle>
+          </div>
+          <!-- Lack of distance breaks update -->
+          <SlickList
+            v-if="moduleLessons[module.id]"
+            v-show="isOpenedModule(module.id)"
+            v-model:list="moduleLessons[module.id]"
+            class="pl-8"
+            axis="y"
+            lock-axis="y"
+            :distance="1"
+            group="module"
+            use-drag-handle
+            @update:list="updateLessons<Tables<'lesson'>>"
+            @sort-end="disableChangeLessons"
           >
-            <div class="bg-gray-200 border-[1px] p-1 border-gray-400 z-100 flex flex-row items-center">
-              <button
-                class="bg-gray-100 p-1 rounded-xl text-sm"
-                @click.prevent="createNewLesson(module.id)"
-              >
-                Create new lesson
-              </button>
-            </div>
-          </SlickItem>
-        </SlickList>
-      </SlickItem>
-      <SlickItem
-        v-show="!pending"
-        :disabled="true"
-        :index="sortedModules.length"
-      >
-        <div class="bg-blue-200 border-[1px] p-1 border-gray-400 z-100 flex flex-row items-center">
-          <button
-            class="bg-gray-100 p-1 rounded-xl text-sm"
-            @click.prevent="createNewModule"
+            <SlickItem
+              v-for="(lesson, i2) in moduleLessons[module.id]"
+              :key="lesson.id"
+              :disabled="pendingChange"
+              :index="i2"
+              class="select-none"
+            >
+              <div class="bg-gray-200 border-[1px] p-1 border-gray-400 flex flex-row items-center">
+                <div>
+                  <div v-show="!isEditLessonMode(lesson.id)">
+                    <span class="text-gray-800 font-bold mr-2">{{ i + 1 }}.{{ i2 + 1 }}</span>
+                    <span>{{ lesson.name }}</span>
+                  </div>
+                  <input
+                    v-if="isEditLessonMode(lesson.id)"
+                    ref="inputLesson"
+                    :disabled="pendingChange"
+                    :data-lesson-id="lesson.id"
+                    class="bg-gray-200 border-[1px] border-gray-400"
+                    :value="lesson.name"
+                    @input.prevent
+                  >
+                </div>
+                <button
+                  :disabled="pendingChange"
+                  class="bg-gray-100 p-1 rounded-xl ml-2 text-sm"
+                  @click.prevent="toggleEditLessonMode(lesson.id)"
+                >
+                  Edit
+                </button>
+                <button
+                  v-show="isEditLessonMode(lesson.id)"
+                  :disabled="pendingChange"
+                  class="bg-gray-100 p-1 rounded-xl ml-2 text-sm"
+                  @click="editLessonName(module.id, i2)"
+                >
+                  Save
+                </button>
+                <DragHandle class="bg-gray-100 p-1 rounded-xl text-sm ml-auto">
+                  Drag me
+                </DragHandle>
+              </div>
+            </SlickItem>
+          </SlickList>
+          <div
+            v-show="isOpenedModule(module.id)"
+            class="ml-8 bg-gray-200 border-[1px] p-1 border-gray-400 z-100 flex flex-row items-center"
           >
-            Create new module
-          </button>
-        </div>
-      </SlickItem>
-    </SlickList>
-    <div v-show="pendingChange">
+            <button
+              class="bg-gray-100 p-1 rounded-xl text-sm"
+              @click.prevent="createNewLesson(module.id)"
+            >
+              Create new lesson
+            </button>
+          </div>
+        </SlickItem>
+      </SlickList>
+      <div class="mx-8 px-8 bg-blue-200 border-[1px] py-1 border-gray-400 z-100 flex flex-row items-center">
+        <button
+          class="bg-gray-100 p-1 rounded-xl text-sm"
+          @click.prevent="createNewModule"
+        >
+          Create new module
+        </button>
+      </div>
+    </div>
+    <div
+      v-show="pendingChange"
+      class="fixed"
+    >
       Loading...
     </div>
   </div>
@@ -148,7 +153,12 @@
 
 <script setup lang="ts">
 import { SlickList, SlickItem, DragHandle } from 'vue-slicksort';
-const courseStore = useCourseStore();
+import type {AllCourseData} from "~/utils/course";
+import type {Tables} from "~/utils/supabase";
+
+definePageMeta({
+  middleware: 'course-create',
+})
 
 const inputLesson = ref<HTMLInputElement[]>([]);
 const inputModule = ref<HTMLInputElement[]>([]);
@@ -172,37 +182,28 @@ const pendingChange = computed(() =>
 );
 
 const route = useRoute();
-const sortedModules = ref([]);
-const sortedLessons = ref({});
-const { data, pending } = await useLazyAsyncData(
-    `courses-edit-${route.params.id}`,
+const { data } = await useLazyAsyncData<AllCourseData>(
+    `courses-create-${route.params.id}`,
     async () => fetchAllCourseData(route.params.id),
     {
-      default: () => ({}),
+      default: () => null,
       getCachedData: key => tempCachedData(key, 15),
       transform: input => ({ ...input, fetchedAt: new Date() }),
     }
 )
 
-watch(pending, (val) => {
-  if (!val) {
-    courseStore.patchCourse(data.value);
-    sortedModules.value = courseStore.sortedModules;
-    sortedModules.value.forEach(module => {
-      sortedLessons.value[module.id] = courseStore.courseLessons.filter(lesson => lesson.module_id === module.id).toSorted((a, b) => a.list_order - b.list_order)
-    })
-  }
-}, { immediate: true })
+const { sortedModules, course, moduleLessons } = useCourseData(data);
 
 function useCreateModule() {
-  const { currentCourse } = courseStore;
   const pending = ref(false);
 
   const create = async () => {
+    if (!course.value?.id) {
+      throw new Error('Course not found');
+    }
     pending.value = true
-    const { module } = await createModule(currentCourse.id, sortedModules.value.length);
-    sortedModules.value.push(module);
-    sortedLessons.value[module.id] = [];
+    const { module } = await createModule(course.value.id, sortedModules.value.length);
+    data.value?.modules.push(module);
     pending.value = false
   }
 
@@ -212,10 +213,10 @@ function useCreateModule() {
 function useCreateLesson() {
   const pending = ref(false);
 
-  const create = async (moduleId) => {
+  const create = async (moduleId: number) => {
     pending.value = true;
-    const { lesson } = await createLesson(moduleId, sortedLessons.value[moduleId].length);
-    sortedLessons.value[moduleId].push(lesson);
+    const { lesson } = await createLesson(moduleId, moduleLessons.value[moduleId]?.length ?? 0);
+    data.value?.lessons.push(lesson);
     pending.value = false;
   }
 
@@ -227,13 +228,21 @@ function useEditLesson() {
 
   const pending = ref(false);
 
-  const edit = async (moduleId, lessonIndex) => {
-    const lesson = sortedLessons.value[moduleId][lessonIndex];
+  const edit = async (moduleId: number, lessonIndex: number) => {
+    const lessonFromSorted = moduleLessons.value[moduleId][lessonIndex];
+    const lesson = data.value?.lessons.find(item => item.id === lessonFromSorted.id);
+    if (!lesson) {
+      throw new Error('Lesson not found');
+    }
     const currentInput = inputLesson.value?.find(item => +item.dataset.lessonId === lesson.id);
+    if (!currentInput) {
+      throw new Error('Input not found');
+    }
+
     const { value } = currentInput;
     pending.value = true;
     await updateLessonName(lesson.id, value);
-    sortedLessons.value[moduleId][lessonIndex] = { ...sortedLessons.value[moduleId][lessonIndex], name: value };
+    lesson.name = value;
     toggleEditLessonMode(lesson.id);
     pending.value = false;
   }
@@ -246,51 +255,27 @@ function useEditModule() {
 
   const pending = ref(false);
 
-  const edit = async (moduleIndex) => {
-    const module = sortedModules.value[moduleIndex];
+  const edit = async (moduleIndex: number) => {
+    const moduleFromSorted = sortedModules.value[moduleIndex];
+    const module = data.value?.modules.find(item => item.id === moduleFromSorted.id);
+    if (!module) {
+      throw new Error('Module not found');
+    }
+    // const module = sortedModules.value[moduleIndex];
     const currentInput = inputModule.value?.find(item => +item.dataset.moduleId === module.id);
+    if (!currentInput) {
+      throw new Error('Input not found');
+    }
+
     const { value } = currentInput;
     pending.value = true;
     await updateModuleName(module.id, value);
-    sortedModules.value[moduleIndex] = { ...sortedModules.value[moduleIndex], name: value };
+    module.name = value;
     toggleEditModuleMode(module.id);
     pending.value = false;
   }
 
   return { edit, pending };
-}
-
-function useActiveItem() {
-  const openedItem = ref(null);
-
-  const isActive = (itemId) => {
-    return openedItem.value === itemId;
-  }
-
-  const interact = (itemId) => {
-    openedItem.value = openedItem.value === itemId ? null : itemId;
-  }
-
-  return { interact, isActive };
-}
-
-function useActiveItems() {
-  const openedItems = reactive(new Set())
-
-  const isActive = (itemId) => {
-    return openedItems.has(itemId);
-  }
-
-  const interact = (itemId) => {
-    if (openedItems.has(itemId)) {
-      openedItems.delete(itemId);
-      return;
-    }
-
-    openedItems.add(itemId);
-  }
-
-  return { interact, isActive };
 }
 
 function useDragSort (updateFunction: any) {
@@ -301,9 +286,9 @@ function useDragSort (updateFunction: any) {
   }
 
   // ToDo create a single query with "when case" (can supabase do it?)
-  const update = async (arr) => {
+  const update = async <T extends Tables<'lesson' | 'module'>> (arr: T[]) => {
     pending.value = true;
-    const promises = [];
+    const promises: Array<Promise<boolean>> = [];
     arr.forEach((item, index) => {
       if (index === item.list_order) {
         return;

@@ -37,6 +37,7 @@ async function seedTransactions() {
       courses.push({
         name: courseName,
         user_id: userId,
+        description: faker.commerce.productDescription(),
       })
     }
 

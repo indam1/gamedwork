@@ -1,6 +1,6 @@
 <template>
   <div>
-    <header class="sticky top-0 left-0 flex flex-row justify-between bg-gray-200 p-8">
+    <header class="sticky top-0 left-0 flex flex-row justify-between bg-indigo-900 p-8 text-white">
       <NuxtLink to="/">
         gamEDwork
       </NuxtLink>
@@ -36,7 +36,6 @@
 <script setup lang="ts">
 const isAuthModalOpened = ref(false);
 </script>
-
 <style scoped>
 
 </style>

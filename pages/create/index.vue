@@ -13,7 +13,7 @@
     </ul>
     <form
       class="grid gap-2"
-      @submit.prevent
+      @submit.prevent="create"
     >
       <label for="name">Name</label>
       <input
@@ -32,7 +32,6 @@
       <button
         class="bg-green-400"
         :disabled="pending"
-        @click="create"
       >
         Create new
       </button>
@@ -55,25 +54,28 @@ const { data: courses, refresh } = await useLazyAsyncData(
 const pending = ref(false);
 const courseName = ref('');
 const courseLink = ref('');
+
+const edit = (courseId: number | string) => {
+  return navigateTo(`/create/${courseId}`)
+}
+
 const create = async () => {
   let courseId;
   try {
     pending.value = true;
     const data = await createCourse(courseName.value, courseLink.value);
     courseId = data.courseId;
+    if (!courseId) {
+      throw new Error('Course not created');
+    }
+
     // Refresh courses on return back after navigation because of tempCachedData
     refresh().then(console.error);
+    return edit(courseId);
+
   } finally {
     pending.value = false;
-  }
 
-  if (!courseId) {
-    return;
   }
-  return navigateTo(`/create/${courseId}`)
-}
-
-const edit = (courseId: number) => {
-  return navigateTo(`/create/${courseId}`)
 }
 </script>

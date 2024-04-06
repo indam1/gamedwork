@@ -35,9 +35,16 @@ export default defineWebSocketHandler({
                 }
             };
 
-            const { roomId } = users.get(userId);
+            const userInfo = users.get(userId);
+            if (!userInfo) {
+                throw new Error('No user info');
+            }
+
+            const { roomId } = userInfo;
             peer.send(_message); // echo back
-            peer.publish(roomId, _message);
+            if (roomId) {
+                peer.publish(roomId, _message);
+            }
             await addMessage(userId, message.text());
             return;
         }
@@ -51,13 +58,22 @@ export default defineWebSocketHandler({
             const { initiator, step_id } = data.payload;
             const isUserInitiator = userId === initiator;
             const initiatorUser = users.get(initiator);
-            let { roomId } = initiatorUser;
+            const initiatorUserInfo = users.get(userId);
+            if (!initiatorUserInfo) {
+                throw new Error('No user info');
+            }
+
+            let { roomId } = initiatorUserInfo;
             if (!roomId) {
                 roomId = `${initiator}:${step_id}`;
                 rooms.set(roomId, new Set([initiator]));
             }
 
             const user = isUserInitiator ? initiatorUser : users.get(userId);
+            if (!user) {
+                throw new Error('No user');
+            }
+
             user.roomId = roomId;
             peer.send({ event: 8 })
             peer.subscribe(roomId);
