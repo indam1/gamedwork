@@ -61,6 +61,9 @@ devDependencies:
   '@storybook/vue3':
     specifier: ^8.0.5
     version: 8.0.5(vue@3.4.21)
+  '@supabase/postgrest-js':
+    specifier: ^1.15.0
+    version: 1.15.0
   '@supabase/supabase-js':
     specifier: ^2.40.0
     version: 2.42.0
@@ -76,6 +79,9 @@ devDependencies:
   '@vueuse/nuxt':
     specifier: ^10.9.0
     version: 10.9.0(nuxt@3.11.2)(vue@3.4.21)
+  crossws:
+    specifier: ^0.2.4
+    version: 0.2.4
   dotenv:
     specifier: ^16.4.5
     version: 16.4.5

@@ -20,7 +20,7 @@
 </template>
 
 <script setup lang="ts">
-import type {WebSocketRoomInvite} from "~/stores/useWebSocketStore"
+import type {WebSocketRoomInvite} from '~/stores/useWebSocketStore'
 
 const webSocketStore = useWebSocketStore()
 const { sendEvent } = webSocketStore

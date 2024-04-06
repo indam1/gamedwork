@@ -1,6 +1,6 @@
-import type {Ref} from "vue"
-import type {AllCourseData} from "~/utils/course"
-import type {Tables} from "~/utils/supabase"
+import type {Ref} from 'vue'
+import type {AllCourseData} from '~/utils/course'
+import type {Tables} from '~/utils/supabase'
 
 export default function (data: Ref<AllCourseData | null>) {
     const courseStore = useCourseStore()

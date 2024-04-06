@@ -57,7 +57,7 @@
 </template>
 
 <script setup lang="ts">
-import type {AllCourseData} from "~/utils/course"
+import type {AllCourseData} from '~/utils/course'
 
 definePageMeta({
   layout: 'process',
@@ -73,7 +73,7 @@ const { fetchAllCourseData, completeStep } = useSupabaseFetching()
 // ToDo probably not a good way to cache data
 const { data: course } = await useLazyAsyncData<AllCourseData>(
     `courses-lesson-${route.params.id}`,
-    async () => fetchAllCourseData(route.params.id),
+    async () => fetchAllCourseData(Array.isArray(route.params.id) ? route.params.id[0] : route.params.id),
     {
       default: () => null,
       getCachedData: key => tempCachedData(key, 15),
@@ -84,7 +84,7 @@ const { data: course } = await useLazyAsyncData<AllCourseData>(
 const { getNextStep, completedSteps, steps, courseLinkId, sortedModules, lessons, sortedSteps } = useCourseData(course)
 
 const { data: content, pending: contentPending } = await useLazyFetch(
-    `/api/content`,
+    '/api/content',
     {
       query: { lesson: route.params.lesson, step: route.params.step },
       default: () => null,

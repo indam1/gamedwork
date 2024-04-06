@@ -1,5 +1,5 @@
-import type {AllCourseData} from "~/utils/course"
-import type {Database, Tables} from "~/utils/supabase"
+import type {AllCourseData} from '~/utils/course'
+import type {Database, Tables} from '~/utils/supabase'
 
 // ToDo BLOCK INSERTING NUMERIC VALUES INTO COURSE LINK_ID ON SERVER SIDE
 export default function () {
@@ -31,23 +31,24 @@ export default function () {
         return { courses: courses ?? [] }
     }
 
-    const fetchCourseData = async (courseId: number | string): Promise<Tables<'course'> | null> => {
-        console.log(courseId)
-        let query = supabase.from('course').select('*')
+    // ToDo fix query type
+    const createCourseQuery = (query: any, courseId: string | number) => {
         if (Number.isInteger(+courseId)) {
-            query = query.eq('id', courseId)
-        } else {
-            query = query.eq('link_id', courseId)
+            return query.eq('id', +courseId)
         }
+
+        return query.eq('link_id', courseId)
+    }
+
+    const fetchCourseData = async (courseId: number | string): Promise<Tables<'course'> | null> => {
+        const query = createCourseQuery(supabase.from('course').select('*'), courseId)
         const { data: course } = await query.limit(1).single()
         return course
     }
 
-    const fetchModulesByCourseId = async (courseId: number): Promise<Tables<'module'>[]> => {
-        const { data: modules } = await supabase.from('module')
-            .select('*')
-            // .select('name, id, name, course_id, list_order')
-            .eq('course_id', courseId)
+    const fetchModulesByCourseId = async (courseId: number | string): Promise<Tables<'module'>[]> => {
+        const query = createCourseQuery(supabase.from('module').select('*'), courseId)
+        const { data: modules } = await query.eq('course_id', courseId)
         return modules ?? []
     }
 
@@ -131,7 +132,7 @@ export default function () {
     }
 
     // ToDo create a single db query with inner joins
-    const fetchAllCourseData = async (courseId: number): Promise<AllCourseData> => {
+    const fetchAllCourseData = async (courseId: number | string): Promise<AllCourseData> => {
         const [course, modules] = await Promise.all([
             fetchCourseData(courseId),
             fetchModulesByCourseId(courseId),

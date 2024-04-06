@@ -1,6 +1,7 @@
-import {Peer, WSRequest} from 'crossws'
-import { getQuery } from "ufo"
-import { parse } from "cookie-es"
+import { Peer } from 'crossws'
+import type { WSRequest } from 'crossws'
+import { getQuery } from 'ufo'
+import { parse } from 'cookie-es'
 
 // 0 - open connection
 // 1 - message
@@ -98,7 +99,7 @@ export default defineWebSocketHandler({
         await authenticate(req)
         return {
             headers: {
-                "x-powered-by": "cross-ws",
+                'x-powered-by': 'cross-ws',
             },
         }
     },
@@ -107,6 +108,7 @@ export default defineWebSocketHandler({
 // ToDo make authentication
 async function authenticate(req: WSRequest) {
     const query = getQuery(req.url)
+    // @ts-ignore ToDo handle it
     const cookie = parse(req.headers.cookie)
     if (!cookie['sb-access-token'] || !cookie['sb-refresh-token'] || !query.userId) {
         throw createError({

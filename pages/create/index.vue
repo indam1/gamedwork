@@ -49,7 +49,7 @@
 <script setup lang="ts">
 const { fetchAllUserCourses, createCourse } = useSupabaseFetching()
 const { data: courses, refresh } = await useLazyAsyncData(
-    `courses-create`,
+    'courses-create',
     async () => fetchAllUserCourses(),
     {
       default: () => ({}),

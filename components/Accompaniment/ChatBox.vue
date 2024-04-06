@@ -61,7 +61,8 @@ const sendMessage = () => {
 }
 
 if (route.query.help) {
-  closeInvite(route.query.help)
+  const initiator = Array.isArray(route.query.help) ? route.query.help[0] : route.query.help
+  closeInvite(initiator)
 } else if (user.value) {
   sendEvent({event: 8, payload: {initiator: user?.value.id, step_id: courseStore.currentStepId}})
 }

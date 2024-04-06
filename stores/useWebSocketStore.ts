@@ -62,7 +62,7 @@ export const useWebSocketStore = defineStore('websocket', () => {
     }, { immediate: true })
 
     const log = (user: string, ...args: Array<string>) => {
-        messages.value.push({ text: args.join(" "), user })
+        messages.value.push({ text: args.join(' '), user })
     }
 
     const clear = () => {
@@ -74,7 +74,10 @@ export const useWebSocketStore = defineStore('websocket', () => {
         send(JSON.stringify(payload))
     }
 
-    const closeInvite = (initiator: string) => {
+    const closeInvite = (initiator: string | null) => {
+        if (!initiator) {
+            return
+        }
         invites.value = invites.value.filter(invite => invite.initiator !== initiator)
     }
 

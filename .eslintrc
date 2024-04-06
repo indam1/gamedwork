@@ -17,6 +17,7 @@
     "vue/component-tags-order": ["error", {
       "order": ["template", "script", "style"]
     }],
-    "semi": ["error", "never"]
+    "semi": ["error", "never"],
+    "quotes": ["error", "single"]
   }
 }

@@ -5,7 +5,8 @@ export default defineNuxtRouteMiddleware(async (to) => {
         return abortNavigation('Not authorized')
     }
 
-    const course = await fetchCourseData(to.params.id)
+    const courseId = Array.isArray(to.params.id) ? to.params.id[0] : to.params.id
+    const course = await fetchCourseData(courseId)
     if (user.value?.id && course?.user_id !== user.value?.id) {
         return abortNavigation('Forbidden')
     }

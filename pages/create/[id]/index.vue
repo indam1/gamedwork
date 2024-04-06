@@ -153,8 +153,8 @@
 
 <script setup lang="ts">
 import { SlickList, SlickItem, DragHandle } from 'vue-slicksort'
-import type {AllCourseData} from "~/utils/course"
-import type {Tables} from "~/utils/supabase"
+import type {AllCourseData} from '~/utils/course'
+import type {Tables} from '~/utils/supabase'
 
 definePageMeta({
   middleware: 'course-create',
@@ -184,7 +184,7 @@ const pendingChange = computed(() =>
 const route = useRoute()
 const { data } = await useLazyAsyncData<AllCourseData>(
     `courses-create-${route.params.id}`,
-    async () => fetchAllCourseData(route.params.id),
+    async () => fetchAllCourseData(Array.isArray(route.params.id) ? route.params.id[0] : route.params.id),
     {
       default: () => null,
       getCachedData: key => tempCachedData(key, 15),
@@ -235,7 +235,7 @@ function useEditLesson() {
       throw new Error('Lesson not found')
     }
 
-    const currentInput = inputLesson.value?.find(item => +item.dataset.lessonId === lesson.id)
+    const currentInput = inputLesson.value?.find(item => item.dataset?.lessonId &&  +item.dataset?.lessonId === lesson.id)
     if (!currentInput) {
       throw new Error('Input not found')
     }
@@ -263,7 +263,7 @@ function useEditModule() {
       throw new Error('Module not found')
     }
     // const module = sortedModules.value[moduleIndex];
-    const currentInput = inputModule.value?.find(item => +item.dataset.moduleId === module.id)
+    const currentInput = inputModule.value?.find(item => item.dataset?.moduleId && +item.dataset.moduleId === module.id)
     if (!currentInput) {
       throw new Error('Input not found')
     }

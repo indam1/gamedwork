@@ -31,14 +31,14 @@
 </template>
 
 <script setup lang="ts">
-import type {AllCourseData} from "~/utils/course"
+import type {AllCourseData} from '~/utils/course'
 
 const route = useRoute()
 
 const { fetchAllCourseData } = useSupabaseFetching()
 const { data, pending } = await useLazyAsyncData<AllCourseData>(
     `courses-item-${route.params.id}`,
-    async () => fetchAllCourseData(route.params.id),
+    async () => fetchAllCourseData(Array.isArray(route.params.id) ? route.params.id[0] : route.params.id),
     {
       default: () => null,
     }
