@@ -31,7 +31,7 @@
 </template>
 
 <script setup lang="ts">
-import type {AllCourseData} from "~/utils/course";
+import type {AllCourseData} from "~/utils/course"
 
 const route = useRoute()
 
@@ -44,15 +44,15 @@ const { data, pending } = await useLazyAsyncData<AllCourseData>(
     }
 )
 
-const { generateRandomLessonStepCombination, courseLinkId, courseName, sortedModules, lessons } = useCourseData(data);
+const { generateRandomLessonStepCombination, courseLinkId, courseName, sortedModules, lessons } = useCourseData(data)
 
 useServerSeoMeta({
   title: courseName.value,
 })
 
 function startCourse() {
-  const combination = generateRandomLessonStepCombination();
-  const { lessonId, stepId } = combination;
-  return navigateTo(buildCourseLink(courseLinkId.value, lessonId, stepId));
+  const combination = generateRandomLessonStepCombination()
+  const { lessonId, stepId } = combination
+  return navigateTo(buildCourseLink(courseLinkId.value, lessonId, stepId))
 }
 </script>

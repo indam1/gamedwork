@@ -1,5 +1,5 @@
 export default defineEventHandler((event) => {
-    const query = getQuery(event);
+    const query = getQuery(event)
     return {
         text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus pellentesque, urna ut feugiat dapibus, nisl tellus hendrerit purus, id maximus turpis nisi a erat. Maecenas odio dolor, eleifend id orci vel, porta maximus mi. Vivamus faucibus sodales tortor, id blandit nunc laoreet ut. Quisque nisi magna, luctus eget tellus et, laoreet eleifend diam. Donec bibendum ornare libero, vitae accumsan libero. Cras a quam sit amet augue sollicitudin condimentum vel id ligula. Etiam nec enim vel odio cursus fringilla. Cras ullamcorper nisl sed arcu semper, non condimentum sem commodo.\n' +
             '\n' +

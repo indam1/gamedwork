@@ -23,7 +23,7 @@ export default defineNuxtConfig({
         ['@nuxtjs/eslint-module', { fix: true }],
         '@vueuse/nuxt',
         '@nuxt/ui',
-        // '@nuxt/image',
+        '@nuxt/image',
         // '@nuxtjs/storybook'
     ],
     supabase: {
@@ -41,5 +41,5 @@ export default defineNuxtConfig({
                 { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap' },
             ],
         }
-    }
+    },
 })

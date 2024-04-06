@@ -1,41 +1,48 @@
 <template>
-  <div class="grid grid-cols-2 gap-12">
-    <div>My courses</div>
-    <h1>Create course</h1>
-    <ul class="flex flex-col gap-4">
-      <li
-        v-for="course in courses.courses"
-        :key="course.id"
-        @click="edit(course.link_id ?? course.id)"
+  <div class="flex flex-row p-12 justify-between w-full gap-12">
+    <div class="flex flex-col gap-8 w-full">
+      <p class="font-bold text-2xl">
+        My courses
+      </p>
+      <ul class="flex flex-col gap-2 w-full">
+        <li
+          v-for="course in courses.courses"
+          :key="course.id"
+          class="bg-gray-100 rounded p-2 w-full hover:bg-green-100 cursor-pointer"
+          @click="edit(course.link_id ?? course.id)"
+        >
+          {{ course.name }}
+        </li>
+      </ul>
+    </div>
+    <div>
+      <p>Create new course</p>
+      <form
+        class="grid gap-2"
+        @submit.prevent="create"
       >
-        {{ course.name }}
-      </li>
-    </ul>
-    <form
-      class="grid gap-2"
-      @submit.prevent="create"
-    >
-      <label for="name">Name</label>
-      <input
-        id="name"
-        v-model="courseName"
-        placeholder="name"
-        :disabled="pending"
-      >
-      <label for="link">Link</label>
-      <input
-        id="link"
-        v-model="courseLink"
-        placeholder="link"
-        :disabled="pending"
-      >
-      <button
-        class="bg-green-400"
-        :disabled="pending"
-      >
-        Create new
-      </button>
-    </form>
+        <label for="name">Name</label>
+        <input
+          id="name"
+          v-model="courseName"
+          placeholder="name"
+          :disabled="pending"
+        >
+        <label for="link">Link</label>
+        <input
+          id="link"
+          v-model="courseLink"
+          placeholder="link"
+          :disabled="pending"
+        >
+        <button
+          class="bg-green-400"
+          :disabled="pending"
+        >
+          Create new
+        </button>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -51,31 +58,30 @@ const { data: courses, refresh } = await useLazyAsyncData(
     }
 )
 
-const pending = ref(false);
-const courseName = ref('');
-const courseLink = ref('');
+const pending = ref(false)
+const courseName = ref('')
+const courseLink = ref('')
 
 const edit = (courseId: number | string) => {
   return navigateTo(`/create/${courseId}`)
 }
 
 const create = async () => {
-  let courseId;
+  let courseId
   try {
-    pending.value = true;
-    const data = await createCourse(courseName.value, courseLink.value);
-    courseId = data.courseId;
+    pending.value = true
+    const data = await createCourse(courseName.value, courseLink.value)
+    courseId = data.courseId
     if (!courseId) {
-      throw new Error('Course not created');
+      throw new Error('Course not created')
     }
 
     // Refresh courses on return back after navigation because of tempCachedData
-    refresh().then(console.error);
-    return edit(courseId);
+    refresh().then(console.error)
+    return edit(courseId)
 
   } finally {
-    pending.value = false;
-
+    pending.value = false
   }
 }
 </script>

@@ -40,29 +40,29 @@
 </template>
 
 <script setup lang="ts">
-const route = useRoute();
-const courseStore = useCourseStore();
-const webSocketStore = useWebSocketStore();
-const user = useSupabaseUser();
-const { clear, sendEvent, closeInvite } = webSocketStore;
+const route = useRoute()
+const courseStore = useCourseStore()
+const webSocketStore = useWebSocketStore()
+const user = useSupabaseUser()
+const { clear, sendEvent, closeInvite } = webSocketStore
 
-const messageInput = ref<string>('');
+const messageInput = ref<string>('')
 
 const sendMessage = () => {
     if (!webSocketStore.active) {
-      return;
+      return
     }
 
     if (messageInput.value) {
-        sendEvent({ event: 1, message: messageInput.value });
+        sendEvent({ event: 1, message: messageInput.value })
     }
 
-    messageInput.value = '';
-};
+    messageInput.value = ''
+}
 
 if (route.query.help) {
-  closeInvite(route.query.help);
+  closeInvite(route.query.help)
 } else if (user.value) {
-  sendEvent({event: 8, payload: {initiator: user?.value.id, step_id: courseStore.currentStepId}});
+  sendEvent({event: 8, payload: {initiator: user?.value.id, step_id: courseStore.currentStepId}})
 }
 </script>

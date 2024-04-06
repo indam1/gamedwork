@@ -14,7 +14,7 @@
 </template>
 
 <script setup lang="ts">
-const isAuthModalOpened = ref(false);
+const isAuthModalOpened = ref(false)
 </script>
 
 <style scoped>

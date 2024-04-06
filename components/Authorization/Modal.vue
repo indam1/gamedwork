@@ -34,64 +34,64 @@
 </template>
 
 <script setup lang="ts">
-const user = useSupabaseUser();
-const email = ref('');
+const user = useSupabaseUser()
+const email = ref('')
 
-const { pendingLogIn, pendingLogOut, logIn, logOut, statusLogIn } = useAuthorization(email);
+const { pendingLogIn, pendingLogOut, logIn, logOut, statusLogIn } = useAuthorization(email)
 const messageResult = computed(() => {
   if (statusLogIn.value === 'success') {
-    return 'Check your email';
+    return 'Check your email'
   }
 
   if (statusLogIn.value === 'error') {
-    return 'Failed to send email. Try again';
+    return 'Failed to send email. Try again'
   }
 
-  return null;
-});
+  return null
+})
 
 function useAuthorization(input: Ref<string>) {
-  const email = computed(() => input.value);
-  const supabase = useSupabaseClient();
-  const pendingLogIn = ref(false);
-  const pendingLogOut = ref(false);
-  const statusLogIn = ref('idle');
+  const email = computed(() => input.value)
+  const supabase = useSupabaseClient()
+  const pendingLogIn = ref(false)
+  const pendingLogOut = ref(false)
+  const statusLogIn = ref('idle')
 
   const logOut = async () => {
-    pendingLogOut.value = true;
+    pendingLogOut.value = true
 
     try {
-      const { error } = await supabase.auth.signOut();
+      const { error } = await supabase.auth.signOut()
       if (error) {
-        console.error(error);
-        return;
+        console.error(error)
+        return
       }
 
-      statusLogIn.value = 'idle';
+      statusLogIn.value = 'idle'
     } finally {
-      pendingLogOut.value = false;
+      pendingLogOut.value = false
     }
   }
 
   const logIn = async () => {
-    statusLogIn.value = 'pending';
-    pendingLogIn.value = true;
+    statusLogIn.value = 'pending'
+    pendingLogIn.value = true
 
     try {
-      const { error } = await supabase.auth.signInWithOtp({ email: email.value });
+      const { error } = await supabase.auth.signInWithOtp({ email: email.value })
       if (error) {
-        statusLogIn.value = 'error';
-        console.error(error);
-        return;
+        statusLogIn.value = 'error'
+        console.error(error)
+        return
       }
 
-      statusLogIn.value = 'success';
+      statusLogIn.value = 'success'
 
     } finally {
-      pendingLogIn.value = false;
+      pendingLogIn.value = false
     }
   }
 
-  return { pendingLogIn, pendingLogOut, logIn, logOut, statusLogIn };
+  return { pendingLogIn, pendingLogOut, logIn, logOut, statusLogIn }
 }
 </script>

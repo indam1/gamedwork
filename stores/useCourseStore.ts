@@ -1,10 +1,10 @@
 export const useCourseStore = defineStore('course-store', () => {
-    const currentLessonId = ref();
-    const currentStepId = ref();
+    const currentLessonId = ref()
+    const currentStepId = ref()
 
     const currentPath = computed(() => {
         if (!currentLessonId.value || !currentStepId.value) {
-            return '';
+            return ''
         }
 
         return `lesson-${currentLessonId.value}-${currentStepId.value}`

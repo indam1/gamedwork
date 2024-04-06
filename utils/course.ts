@@ -1,4 +1,4 @@
-import type {Tables} from "~/utils/supabase";
+import type {Tables} from "~/utils/supabase"
 
 export type AllCourseData = {
     course: Tables<'course'>,

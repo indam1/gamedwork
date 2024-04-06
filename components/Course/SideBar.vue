@@ -24,6 +24,6 @@
 </template>
 
 <script setup lang="ts">
-const isShownSideBar = ref(true);
-const isTempShownSideBar = ref(false);
+const isShownSideBar = ref(true)
+const isTempShownSideBar = ref(false)
 </script>

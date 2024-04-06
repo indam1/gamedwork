@@ -152,26 +152,26 @@
 </template>
 
 <script setup lang="ts">
-import { SlickList, SlickItem, DragHandle } from 'vue-slicksort';
-import type {AllCourseData} from "~/utils/course";
-import type {Tables} from "~/utils/supabase";
+import { SlickList, SlickItem, DragHandle } from 'vue-slicksort'
+import type {AllCourseData} from "~/utils/course"
+import type {Tables} from "~/utils/supabase"
 
 definePageMeta({
   middleware: 'course-create',
 })
 
-const inputLesson = ref<HTMLInputElement[]>([]);
-const inputModule = ref<HTMLInputElement[]>([]);
-const { interact: toggleModule, isActive: isOpenedModule } = useActiveItems();
-const { interact: toggleEditModuleMode, isActive: isEditModuleMode } = useActiveItem();
-const { interact: toggleEditLessonMode, isActive: isEditLessonMode } = useActiveItem();
-const { pending: pendingEditLesson, edit: editLessonName } = useEditLesson();
-const { pending: pendingEditModule, edit: editModuleName } = useEditModule();
-const { fetchAllCourseData, updateModuleOrder, updateLessonOrder, createModule, createLesson } = useSupabaseFetching();
-const { pending: pendingCreateModule, create: createNewModule } = useCreateModule();
-const { pending: pendingCreateLesson, create: createNewLesson } = useCreateLesson();
-const { update: updateModules, disable: disableChangeModules, pending: pendingModulesOrder } = useDragSort(updateModuleOrder);
-const { update: updateLessons, disable: disableChangeLessons, pending: pendingLessonsOrder } = useDragSort(updateLessonOrder);
+const inputLesson = ref<HTMLInputElement[]>([])
+const inputModule = ref<HTMLInputElement[]>([])
+const { interact: toggleModule, isActive: isOpenedModule } = useActiveItems()
+const { interact: toggleEditModuleMode, isActive: isEditModuleMode } = useActiveItem()
+const { interact: toggleEditLessonMode, isActive: isEditLessonMode } = useActiveItem()
+const { pending: pendingEditLesson, edit: editLessonName } = useEditLesson()
+const { pending: pendingEditModule, edit: editModuleName } = useEditModule()
+const { fetchAllCourseData, updateModuleOrder, updateLessonOrder, createModule, createLesson } = useSupabaseFetching()
+const { pending: pendingCreateModule, create: createNewModule } = useCreateModule()
+const { pending: pendingCreateLesson, create: createNewLesson } = useCreateLesson()
+const { update: updateModules, disable: disableChangeModules, pending: pendingModulesOrder } = useDragSort(updateModuleOrder)
+const { update: updateLessons, disable: disableChangeLessons, pending: pendingLessonsOrder } = useDragSort(updateLessonOrder)
 const pendingChange = computed(() =>
     pendingModulesOrder.value
     || pendingLessonsOrder.value
@@ -179,9 +179,9 @@ const pendingChange = computed(() =>
     || pendingCreateModule.value
     || pendingCreateLesson.value
     || pendingEditLesson.value
-);
+)
 
-const route = useRoute();
+const route = useRoute()
 const { data } = await useLazyAsyncData<AllCourseData>(
     `courses-create-${route.params.id}`,
     async () => fetchAllCourseData(route.params.id),
@@ -192,116 +192,117 @@ const { data } = await useLazyAsyncData<AllCourseData>(
     }
 )
 
-const { sortedModules, course, moduleLessons } = useCourseData(data);
+const { sortedModules, course, moduleLessons } = useCourseData(data)
 
 function useCreateModule() {
-  const pending = ref(false);
+  const pending = ref(false)
 
   const create = async () => {
     if (!course.value?.id) {
-      throw new Error('Course not found');
+      throw new Error('Course not found')
     }
     pending.value = true
-    const { module } = await createModule(course.value.id, sortedModules.value.length);
-    data.value?.modules.push(module);
+    const { module } = await createModule(course.value.id, sortedModules.value.length)
+    data.value?.modules.push(module)
     pending.value = false
   }
 
-  return { pending, create };
+  return { pending, create }
 }
 
 function useCreateLesson() {
-  const pending = ref(false);
+  const pending = ref(false)
 
   const create = async (moduleId: number) => {
-    pending.value = true;
-    const { lesson } = await createLesson(moduleId, moduleLessons.value[moduleId]?.length ?? 0);
-    data.value?.lessons.push(lesson);
-    pending.value = false;
+    pending.value = true
+    const { lesson } = await createLesson(moduleId, moduleLessons.value[moduleId]?.length ?? 0)
+    data.value?.lessons.push(lesson)
+    pending.value = false
   }
 
-  return { pending, create };
+  return { pending, create }
 }
 
 function useEditLesson() {
-  const { updateLessonName } = useSupabaseFetching();
+  const { updateLessonName } = useSupabaseFetching()
 
-  const pending = ref(false);
+  const pending = ref(false)
 
   const edit = async (moduleId: number, lessonIndex: number) => {
-    const lessonFromSorted = moduleLessons.value[moduleId][lessonIndex];
-    const lesson = data.value?.lessons.find(item => item.id === lessonFromSorted.id);
+    const lessonFromSorted = moduleLessons.value[moduleId][lessonIndex]
+    const lesson = data.value?.lessons.find(item => item.id === lessonFromSorted.id)
     if (!lesson) {
-      throw new Error('Lesson not found');
-    }
-    const currentInput = inputLesson.value?.find(item => +item.dataset.lessonId === lesson.id);
-    if (!currentInput) {
-      throw new Error('Input not found');
+      throw new Error('Lesson not found')
     }
 
-    const { value } = currentInput;
-    pending.value = true;
-    await updateLessonName(lesson.id, value);
-    lesson.name = value;
-    toggleEditLessonMode(lesson.id);
-    pending.value = false;
+    const currentInput = inputLesson.value?.find(item => +item.dataset.lessonId === lesson.id)
+    if (!currentInput) {
+      throw new Error('Input not found')
+    }
+
+    const { value } = currentInput
+    pending.value = true
+    await updateLessonName(lesson.id, value)
+    lesson.name = value
+    toggleEditLessonMode(lesson.id)
+    pending.value = false
   }
 
-  return { edit, pending };
+  return { edit, pending }
 }
 
 function useEditModule() {
-  const { updateModuleName } = useSupabaseFetching();
+  const { updateModuleName } = useSupabaseFetching()
 
-  const pending = ref(false);
+  const pending = ref(false)
 
   const edit = async (moduleIndex: number) => {
-    const moduleFromSorted = sortedModules.value[moduleIndex];
-    const module = data.value?.modules.find(item => item.id === moduleFromSorted.id);
+    const moduleFromSorted = sortedModules.value[moduleIndex]
+    const module = data.value?.modules.find(item => item.id === moduleFromSorted.id)
     if (!module) {
-      throw new Error('Module not found');
+      throw new Error('Module not found')
     }
     // const module = sortedModules.value[moduleIndex];
-    const currentInput = inputModule.value?.find(item => +item.dataset.moduleId === module.id);
+    const currentInput = inputModule.value?.find(item => +item.dataset.moduleId === module.id)
     if (!currentInput) {
-      throw new Error('Input not found');
+      throw new Error('Input not found')
     }
 
-    const { value } = currentInput;
-    pending.value = true;
-    await updateModuleName(module.id, value);
-    module.name = value;
-    toggleEditModuleMode(module.id);
-    pending.value = false;
+    const { value } = currentInput
+    pending.value = true
+    await updateModuleName(module.id, value)
+    module.name = value
+    toggleEditModuleMode(module.id)
+    pending.value = false
   }
 
-  return { edit, pending };
+  return { edit, pending }
 }
 
 function useDragSort (updateFunction: any) {
-  const pending = ref(false);
+  const pending = ref(false)
 
   const disable = () => {
-    pending.value = true;
+    pending.value = true
   }
 
   // ToDo create a single query with "when case" (can supabase do it?)
   const update = async <T extends Tables<'lesson' | 'module'>> (arr: T[]) => {
-    pending.value = true;
-    const promises: Array<Promise<boolean>> = [];
+    pending.value = true
+    const promises: Array<Promise<boolean>> = []
     arr.forEach((item, index) => {
       if (index === item.list_order) {
-        return;
+        return
       }
 
-      item.list_order = index;
-      promises.push(updateFunction(item.id, index));
-    });
+      item.list_order = index
+      promises.push(updateFunction(item.id, index))
+    })
 
-    await Promise.all(promises);
-    pending.value = false;
+    await Promise.all(promises)
+    pending.value = false
   }
 
-  return { update, disable, pending };
+  return { update, disable, pending }
 }
 </script>

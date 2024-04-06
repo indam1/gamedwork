@@ -7,7 +7,7 @@
       >
         Need help? Open chat and ask, somebody definitely can help you.
       </button>
-      <WebSocketChatBox v-if="isOpenedChat || route.query.help" />
+      <AccompanimentChatBox v-if="isOpenedChat || route.query.help" />
       <div>{{ course ? course.course.name : 'Loading...' }}</div>
       <ol class="overflow-y-auto">
         <li
@@ -57,7 +57,7 @@
 </template>
 
 <script setup lang="ts">
-import type {AllCourseData} from "~/utils/course";
+import type {AllCourseData} from "~/utils/course"
 
 definePageMeta({
   layout: 'process',
@@ -81,7 +81,7 @@ const { data: course } = await useLazyAsyncData<AllCourseData>(
     }
 )
 
-const { getNextStep, completedSteps, steps, courseLinkId, sortedModules, lessons, sortedSteps } = useCourseData(course);
+const { getNextStep, completedSteps, steps, courseLinkId, sortedModules, lessons, sortedSteps } = useCourseData(course)
 
 const { data: content, pending: contentPending } = await useLazyFetch(
     `/api/content`,
@@ -92,50 +92,50 @@ const { data: content, pending: contentPending } = await useLazyFetch(
 )
 
 async function clickComplete() {
-  const { lessonId, stepId } = getNextStep();
-  const { currentStepId } = courseStore;
-  await completeStep(currentStepId);
-  course.value?.completedSteps.push(currentStepId);
-  return changeStep(lessonId, stepId);
+  const { lessonId, stepId } = getNextStep()
+  const { currentStepId } = courseStore
+  await completeStep(currentStepId)
+  course.value?.completedSteps.push(currentStepId)
+  return changeStep(lessonId, stepId)
 }
 
 function commonStyleColor(isCompleted: boolean, isCurrent: boolean) {
   if (isCompleted && isCurrent) {
-    return 'bg-green-600';
+    return 'bg-green-600'
   }
 
   if (isCompleted) {
-    return 'bg-green-400';
+    return 'bg-green-400'
   }
 
   if (isCurrent) {
-    return 'bg-gray-400';
+    return 'bg-gray-400'
   }
 
-  return '';
+  return ''
 }
 
 function lessonStyleColor(lessonId: number) {
-  const isCompleted = steps.value.filter(item => item.lesson_id === lessonId).every(step => completedSteps.value.includes(step.id));
-  const isCurrent = courseStore.currentLessonId === lessonId;
-  return commonStyleColor(isCompleted, isCurrent);
+  const isCompleted = steps.value.filter(item => item.lesson_id === lessonId).every(step => completedSteps.value.includes(step.id))
+  const isCurrent = courseStore.currentLessonId === lessonId
+  return commonStyleColor(isCompleted, isCurrent)
 }
 
 function stepStyleColor(stepId: number) {
-  const isCompleted = completedSteps.value.includes(stepId);
-  const isCurrent = courseStore.currentStepId === stepId;
-  return commonStyleColor(isCompleted, isCurrent);
+  const isCompleted = completedSteps.value.includes(stepId)
+  const isCurrent = courseStore.currentStepId === stepId
+  return commonStyleColor(isCompleted, isCurrent)
 }
 
 function changeStep(lessonId: number, stepId: number) {
-  return navigateTo(buildCourseLink(courseLinkId.value, lessonId, stepId), { replace: true });
+  return navigateTo(buildCourseLink(courseLinkId.value, lessonId, stepId), { replace: true })
 }
 
 function clickStep(lessonId: number) {
-  const step = steps.value.find(item => item.lesson_id === lessonId);
+  const step = steps.value.find(item => item.lesson_id === lessonId)
   if (!step) {
-    throw new Error('No step');
+    throw new Error('No step')
   }
-  return changeStep(lessonId, step.id);
+  return changeStep(lessonId, step.id)
 }
 </script>

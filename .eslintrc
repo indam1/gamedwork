@@ -16,6 +16,7 @@
     "jsdoc/require-jsdoc": "off",
     "vue/component-tags-order": ["error", {
       "order": ["template", "script", "style"]
-    }]
+    }],
+    "semi": ["error", "never"]
   }
 }
